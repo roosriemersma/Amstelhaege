@@ -5,6 +5,10 @@ print("Maartje is de shit")
 #25% bungalo   10x7.5 = 75m2         3 meter   399000eu   4%
 #15% maison    11x10.5 = 115.5m2     6 meter   610000eu   6%
 
-afemtingen = {'1gezin': 8*8, 'bungalo': 10*7.5, 'maison': 11*10.5}
+afmetingen = {'1gezin': 8*8, 'bungalo': 10*7.5, 'maison': 11*10.5}
 prijs = {'P1gezin' : 285000, 'Pbungalo' : 399000, 'Pmaison' : 610000}
+
+totaleOpprvlakte = 28800
+
+#def draw
 

@@ -29,9 +29,9 @@ print (eengezinswoning[0])
 #visualiseren
 master = Tk()
 
-w = Canvas(master, width=width, height=height)
-w.pack()
+map = Canvas(master, width=width, height=height)
+map.pack()
 # linksboven x, linksboven y, rechtsboven x, rechtsboven y
-w.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
 
 mainloop()

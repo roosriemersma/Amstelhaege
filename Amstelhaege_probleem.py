@@ -21,10 +21,10 @@ bungalo = [10, 7.5, 399000, 0.04]
 maison = [11, 10.5, 610000, 0.06]
 width = 160
 height = 180
-#randomX = randint(0, 160)
-#randomY = randint(0, 180)
-#randomX2 = randint(0, 160)
-#randomY2 = randint(0, 180)
+randomX = randint(0, 160)
+randomY = randint(0, 180)
+randomX2 = randint(0, 160)
+randomY2 = randint(0, 180)
 
 print (eengezinswoning[0])
 
@@ -34,13 +34,7 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 # linksboven x, linksboven y, rechtsboven x, rechtsboven y
-#map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
-#map.create_rectangle(randomX2, randomY2, randomX2 + bungalo[0], randomY2 + bungalo[1], fill="blue")
+map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+map.create_rectangle(randomX2, randomY2, randomX2 + bungalo[0], randomY2 + bungalo[1], fill="blue")
 
 mainloop()
-
-for i in range[0.6*20] :
-    randomX = randint(0, 160)
-    randomY = randint(0, 180)
-
-    map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")

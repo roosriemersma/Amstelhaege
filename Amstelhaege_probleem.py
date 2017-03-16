@@ -1,3 +1,6 @@
+from random import randint
+from tkinter import *
+
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -18,18 +21,17 @@ bungalo = [10, 7.5, 399000, 0.04]
 maison = [11, 10.5, 610000, 0.06]
 width = 160
 height = 180
-
+randomX = randint(0, 160)
+randomY = randint(0, 180)
 
 print (eengezinswoning[0])
 
 #visualiseren
-from tkinter import *
-
 master = Tk()
 
 w = Canvas(master, width=width, height=height)
 w.pack()
 # links, boven, breedte, hoogte
-w.create_rectangle(0, 0, eengezinswoning[0], eengezinswoning[1], fill="red")
+w.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
 
 mainloop()

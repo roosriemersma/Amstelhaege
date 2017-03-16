@@ -1,11 +1,3 @@
-from random import randint
-from tkinter import *
-
-#BELANGRIJKE BRONNEN
-#https://www.tutorialspoint.com/python/python_gui_programming.htm
-
-
-print("Maartje is de shit")
 #160 X 180 meter = 28800 m2
 #20% water = 5760 m2
 #60% 1sgezins  8x8 = 16m2            2 meter   285000eu   3%
@@ -14,6 +6,15 @@ print("Maartje is de shit")
 #er zijn 3 opties waar de computer uit moet kiezen:
 #20 huizen, 40 huizen of 60 huizen, huizensoort kan verschillen
 
+import random
+from random import randint
+from tkinter import *
+
+#BELANGRIJKE BRONNEN
+#https://www.tutorialspoint.com/python/python_gui_programming.htm
+
+
+print("Maartje is de shit")
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
 eengezinswoning = [8, 8, 285000, 0.03]
@@ -21,12 +22,8 @@ bungalo = [10, 7.5, 399000, 0.04]
 maison = [11, 10.5, 610000, 0.06]
 width = 160
 height = 180
-randomX = randint(0, 160)
-randomY = randint(0, 180)
-randomX2 = randint(0, 160)
-randomY2 = randint(0, 180)
-randomX3 = randint(0, 160)
-randomY3 = randint(0, 180)
+hoeveelHuizen = [20, 40, 60]
+maxHuizen = random.choice(hoeveelHuizen)
 
 print (eengezinswoning[0])
 
@@ -36,8 +33,22 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 # linksboven x, linksboven y, rechtsboven x, rechtsboven y
-map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
-map.create_rectangle(randomX2, randomY2, randomX2 + bungalo[0], randomY2 + bungalo[1], fill="blue")
-map.create_rectangle(randomX3, randomY3, randomX3 + bungalo[0], randomY3 + bungalo[1], fill="yellow")
+#map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+#map.create_rectangle(randomX2, randomY2, randomX2 + bungalo[0], randomY2 + bungalo[1], fill="blue")
+#map.create_rectangle(randomX3, randomY3, randomX3 + maison[0], randomY3 + maison[1], fill="yellow")
 
 mainloop()
+
+for i in range(maxHuizen):
+    for j in range(int(0.6 * maxHuizen)):
+        randomX = randint(0, 160)
+        randomY = randint(0, 180)
+        map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+    for k in range(int(0.25 * maxHuizen)):
+        randomX = randint(0, 160)
+        randomY = randint(0, 180)
+        map.create_rectangle(randomX, randomY, randomX + bungalo[0], randomY + bungalo[1], fill="blue")
+    for l in range(int(0.15 * maxHuizen)):
+        randomX = randint(0, 160)
+        randomY = randint(0, 180)
+        map.create_rectangle(randomX, randomY, randomX + maison[0], randomY + maison[1], fill="yellow")

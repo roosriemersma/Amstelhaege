@@ -32,10 +32,7 @@ maison = Woning(11, 10.5, 610000, 0.06)
 
 print(eengezinswoning)
 
-#soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
-eengezinswoning = [8, 8, 285000, 0.03]
-bungalo = [10, 7.5, 399000, 0.04]
-maison = [11, 10.5, 610000, 0.06]
+
 width = 160
 height = 180
 hoeveelHuizen = [20, 40, 60]
@@ -43,17 +40,17 @@ maxHuizen = random.choice(hoeveelHuizen)
 
 def huizenPlaatsen():
     for j in range(int(0.6 * maxHuizen)):
-        randomX = randint(0, 160)
-        randomY = randint(0, 180)
-        map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+        randomX = randint(0, 160-eengezinswoning.breedte)
+        randomY = randint(0, 180-eengezinswoning.diepte)
+        map.create_rectangle(randomX, randomY, randomX + eengezinswoning.breedte, randomY + eengezinswoning.diepte, fill="red")
     for k in range(int(0.25 * maxHuizen)):
-        randomX = randint(0, 160)
-        randomY = randint(0, 180)
-        map.create_rectangle(randomX, randomY, randomX + bungalo[0], randomY + bungalo[1], fill="blue")
+        randomX = randint(0, 160-bungalo.breedte)
+        randomY = randint(0, 180-bungalo.diepte)
+        map.create_rectangle(randomX, randomY, randomX + bungalo.breedte, randomY + bungalo.diepte, fill="blue")
     for l in range(int(0.15 * maxHuizen)):
-        randomX = randint(0, 160)
-        randomY = randint(0, 180)
-        map.create_rectangle(randomX, randomY, randomX + maison[0], randomY + maison[1], fill="yellow")
+        randomX = randint(0, 160-maison.breedte)
+        randomY = randint(0, 180-maison.diepte)
+        map.create_rectangle(randomX, randomY, randomX + maison.breedte, randomY + maison.diepte, fill="yellow")
 
 #def huizenPlaatsen2()
 #    for i in range(int())

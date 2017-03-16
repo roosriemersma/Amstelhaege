@@ -1,3 +1,4 @@
+
 from random import randint
 from tkinter import *
 
@@ -29,9 +30,9 @@ print (eengezinswoning[0])
 #visualiseren
 master = Tk()
 
-map = Canvas(master, width=width, height=height)
-map.pack()
-# linksboven x, linksboven y, rechtsboven x, rechtsboven y
-map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+w = Canvas(master, width=width, height=height)
+w.pack()
+# links, boven, breedte, hoogte
+w.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
 
 mainloop()

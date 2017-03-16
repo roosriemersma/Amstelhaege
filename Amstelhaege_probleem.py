@@ -37,8 +37,6 @@ map.pack()
 #map.create_rectangle(randomX2, randomY2, randomX2 + bungalo[0], randomY2 + bungalo[1], fill="blue")
 #map.create_rectangle(randomX3, randomY3, randomX3 + maison[0], randomY3 + maison[1], fill="yellow")
 
-mainloop()
-
 for i in range(maxHuizen):
     for j in range(int(0.6 * maxHuizen)):
         randomX = randint(0, 160)
@@ -52,3 +50,7 @@ for i in range(maxHuizen):
         randomX = randint(0, 160)
         randomY = randint(0, 180)
         map.create_rectangle(randomX, randomY, randomX + maison[0], randomY + maison[1], fill="yellow")
+
+mainloop()
+
+

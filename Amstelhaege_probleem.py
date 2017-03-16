@@ -4,11 +4,17 @@ print("Maartje is de shit")
 #60% 1sgezins  8x8 = 16m2            2 meter   285000eu   3%
 #25% bungalo   10x7.5 = 75m2         3 meter   399000eu   4%
 #15% maison    11x10.5 = 115.5m2     6 meter   610000eu   6%
+#er zijn 3 opties waar de computer uit moet kiezen:
+#20 huizen, 40 huizen of 60 huizen, huizensoort kan verschillen
 
-afmetingen = {'1gezin': 8*8, 'bungalo': 10*7.5, 'maison': 11*10.5}
-prijs = {'P1gezin' : 285000, 'Pbungalo' : 399000, 'Pmaison' : 610000}
+
+
+#soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
+eengezinswoning = {8, 8, 285000, 0.03}
+bungalo = {10, 7.5, 399000, 0.04}
+maison = {11, 10.5, 610000, 0.06}
 
 totaleOpprvlakte = 28800
 
-#def draw
+
 

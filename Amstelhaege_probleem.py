@@ -27,15 +27,12 @@ class Woning(object):
         return "huis:{}".format(self.breedte)
 
 eengezinswoning = Woning(8, 8, 285000, 0.03)
-bungalo = Woning(10, 7.5, 399000, 0,04)
+bungalo = Woning(10, 7.5, 399000, 0.04)
 maison = Woning(11, 10.5, 610000, 0.06)
 
 print(eengezinswoning)
 
-#soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
-eengezinswoning = [8, 8, 285000, 0.03]
-bungalo = [10, 7.5, 399000, 0.04]
-maison = [11, 10.5, 610000, 0.06]
+
 width = 160
 height = 180
 hoeveelHuizen = [20, 40, 60]

@@ -14,6 +14,7 @@ from tkinter import *
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
 
+
 print("Maartje is de shit")
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter, precentage huizen, kleur}

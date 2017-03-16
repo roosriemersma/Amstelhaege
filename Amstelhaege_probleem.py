@@ -13,3 +13,6 @@ eengezinswoning = {8, 8, 285000, 0.03}
 bungalo = {10, 7.5, 399000, 0.04}
 maison = {11, 10.5, 610000, 0.06}
 
+import tkinter
+top = tkinter.Tk()
+top.mainloop()

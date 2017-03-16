@@ -19,9 +19,6 @@ maison = [11, 10.5, 610000, 0.06]
 width = 160
 height = 180
 
-#import tkinter
-#top = tkinter.Tk()
-#top.mainloop()
 
 print (eengezinswoning[0])
 

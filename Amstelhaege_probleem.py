@@ -1,3 +1,7 @@
+#BELANGRIJKE BRONNEN
+#https://www.tutorialspoint.com/python/python_gui_programming.htm
+
+
 print("Maartje is de shit")
 #160 X 180 meter = 28800 m2
 #20% water = 5760 m2

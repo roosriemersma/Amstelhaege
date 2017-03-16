@@ -17,6 +17,7 @@ import tkinter
 top = tkinter.Tk()
 top.mainloop()
 
+#visualiseren
 from tkinter import *
 
 master = Tk()

@@ -17,10 +17,26 @@ from tkinter import *
 
 print("Maartje is de shit")
 
-#soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter, precentage huizen, kleur}
-eengezinswoning = [8, 8, 285000, 0.03, 0.6, "red"]
-bungalo = [10, 7.5, 399000, 0.04, 0.25, "blue"]
-maison = [11, 10.5, 610000, 0.06, 0.15, "yellow"]
+class Woning(object):
+    def __init__(self, breedte, diepte, waarde, ietsBeters):
+        self.breedte = breedte
+        self.diepte = diepte
+        self.waarde = waarde
+        self.betereNaameHier = ietsBeters
+
+    def __repr__(self):
+        return "huis:{}".format(self.breedte)
+
+eengezinswoning = Woning(8, 8, 285000, 0.03)
+bungalo = Woning(10, 7.5, 399000, 0.04)
+maison = Woning(11, 10.5, 610000, 0.06)
+
+print(eengezinswoning)
+
+#soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
+eengezinswoning = [8, 8, 285000, 0.03]
+bungalo = [10, 7.5, 399000, 0.04]
+maison = [11, 10.5, 610000, 0.06]
 width = 160
 height = 180
 hoeveelHuizen = [20, 40, 60]
@@ -40,6 +56,8 @@ def huizenPlaatsen():
         randomY = randint(0, 180)
         map.create_rectangle(randomX, randomY, randomX + maison[0], randomY + maison[1], fill="yellow")
 
+#def huizenPlaatsen2()
+#    for i in range(int())
 #visualiseren
 master = Tk()
 

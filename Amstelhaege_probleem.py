@@ -23,6 +23,8 @@ width = 160
 height = 180
 randomX = randint(0, 160)
 randomY = randint(0, 180)
+randomX2 = randint(0, 160)
+randomY2 = randint(0, 180)
 
 print (eengezinswoning[0])
 
@@ -33,5 +35,6 @@ map = Canvas(master, width=width, height=height)
 map.pack()
 # linksboven x, linksboven y, rechtsboven x, rechtsboven y
 map.create_rectangle(randomX, randomY, randomX + eengezinswoning[0], randomY + eengezinswoning[1], fill="red")
+map.create_rectangle(randomX2, randomY2, randomX2 + bungalo[0], randomY2 + bungalo[1], fill="blue")
 
 mainloop()

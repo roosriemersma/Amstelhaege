@@ -17,7 +17,7 @@ import Maison
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
-print("Maartje is de shit")
+print("Maaartje is de shit")
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
 width = 160

@@ -3,7 +3,7 @@ class Bungalo(Woning):
     diepte = 7.5
     waarde = 399000
     waardeStijging = 0.04
-     = 0.25
+    aandeelHuizen = 0.25
     kleur = "green"
     vrijeruimte = 3
 

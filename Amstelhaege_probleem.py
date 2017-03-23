@@ -16,17 +16,32 @@ from tkinter import *
 print("Maartje is de shit")
 
 class Woning(object):
-    def __init__(self, breedte, diepte, waarde, waardeStijging, percentage):
-        self.breedte = breedte
-        self.diepte = diepte
-        self.waarde = waarde
-        self.waardeStijging = waardeStijging
-        self.percentage = percentage
-        self.kleur = kleur
+    #def __init__(self, breedte, diepte, waarde, waardeStijging, percentage):
+    #    self.breedte = breedte
+    #    self.diepte = diepte
+    #    self.waarde = waarde
+    #    self.waardeStijging = waardeStijging
+    #    self.percentage = percentage
+    #    self.kleur = kleur
 
     def __repr__(self):
         return "huis:{}".format(self.breedte)
 
+class Maison(Woning):
+    breedte = 11
+    diepte = 10.5
+    waarde = 1
+    waardeStijging = 1
+    percentage = 0.1
+    kleur = "rood"
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+Maison.waarde
+maison = Maison(3,5)
+maison.x
 eengezinswoning = Woning(8, 8, 285000, 0.03, 0.6, "red")
 bungalo = Woning(10, 7.5, 399000, 0.04, 0.25, "green")
 maison = Woning(11, 10.5, 610000, 0.06, 0.15, "yellow")
@@ -76,7 +91,7 @@ def huizenLeuk(Woning):
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)
 
-def huizenTekenen(Woning):
+def huisTekenen(Woning):
     for i in coordinaten:
         huis = coordinaten[i]
         map.create_rectangle(huis[0], huis[1], huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)
@@ -89,6 +104,6 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 
-huizenPlaatsen()
+huisPlaatsen()
 
 mainloop()

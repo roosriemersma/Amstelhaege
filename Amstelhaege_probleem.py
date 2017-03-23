@@ -16,7 +16,7 @@ from tkinter import *
 print("Maartje is de shit")
 
 class Woning(object):
-    def __init__(self, breedte, diepte, waarde, waardeStijging, percentage, kleur):
+    def __init__(self, breedte, diepte, waarde, waardeStijging, percentage):
         self.breedte = breedte
         self.diepte = diepte
         self.waarde = waarde
@@ -38,22 +38,36 @@ width = 160
 height = 180
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
+huizenCoordinaten = []
+
+def vindCoordinaten(breedte, diepte):
+    coordinatenInvalid = TRUE
+    while coordinatenInvalid:
+        randomX = randint(0, int(160 - breedte))
+        randomY = randint(0, int(180 - diepte))
+        for i in range len(huizenCoordinaten)
+        if randomX >= 0 and randomX <= 10 and randomY >= 0 and randomY <= 10
+            coordinatenInvalid = FALSE
 
 coordinaten = []
 
 def huizenPlaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):
-        randomX = randint(0, int(160 - eengezinswoning.breedte))
-        randomY = randint(0, int(180 - eengezinswoning.diepte))
+            randomX = randint(0, int(160 - eengezinswoning.breedte))
+            randomY = randint(0, int(180 - eengezinswoning.diepte))
         map.create_rectangle(randomX, randomY, randomX + eengezinswoning.breedte, randomY + eengezinswoning.diepte, fill="red")
+        huizenCoordinaten.append(randomX, randomY)
     for k in range(int(bungalo.percentage * maxHuizen)):
         randomX = randint(0, int(160 - bungalo.breedte))
         randomY = randint(0, int(180 - bungalo.diepte))
-        map.create_rectangle(randomX, randomY, randomX + bungalo.breedte, randomY + bungalo.diepte, fill="green")
+        map.create_rectangle(randomX, randomY, randomX + bungalo.breedte, randomY + bungalo.diepte, fill="blue")
+        huizenCoordinaten.append(randomX, randomY)
     for l in range(int(maison.percentage * maxHuizen)):
         randomX = randint(0, int(160 - maison.breedte))
         randomY = randint(0, int(180 - maison.diepte))
         map.create_rectangle(randomX, randomY, randomX + maison.breedte, randomY + maison.diepte, fill="yellow")
+        huizenCoordinaten.append(randomX, randomY)
+
 
 def huizenLeuk(Woning):
     for i in range(int(Woning.percentage * maxHuizen)):
@@ -75,8 +89,6 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 
-#huizenPlaatsen()
+huizenPlaatsen()
 
-huizenLeuk(bungalo)
-huizenTekenen(bungalo)
 mainloop()

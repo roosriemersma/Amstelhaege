@@ -27,21 +27,12 @@ maxHuizen = random.choice(hoeveelHuizen)
 huizenCoordinaten = []
 coordinaat = []
 
-#def vindCoordinaten(breedte, diepte):
-#    coordinatenInvalid = TRUE
-#    while coordinatenInvalid:
-#        randomX = randint(0, int(160 - breedte))
-#        randomY = randint(0, int(180 - diepte))
-#        for i in range len(huizenCoordinaten)
-#        if randomX >= 0 and randomX <= 10 and randomY >= 0 and randomY <= 10
- #           coordinatenInvalid = FALSE
-
 coordinaten = []
 
 def zijnCoordinatenVrij(x, y):
     #hier ga ik een functie schrijven die controleert of coordinaten bruikbaar zijn
 
-def huizenPlaatsen():
+def huizenplaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):
         randomX = randint(Single.vrijeruimte, int(width - Single.breedte - Single.vrijeruimte))
         randomY = randint(Single.vrijeruimte, int(height - Single.diepte - Single.vrijeruimte))
@@ -59,14 +50,14 @@ def huizenPlaatsen():
         huizenCoordinaten.append(randomX, randomY)
 
 
-def huizenLeuk(Woning):
+def plaatsWoning(Single, Bungalo, Maison):
     for i in range(int(Woning.percentage * maxHuizen)):
         randx = randint(0, int(160 - Woning.breedte))76
         randy = randint(0, int(180 - Woning.diepte))
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)
 
-def huisTekenen(Woning):
+def huisTekenen(Single, Bungalo, Maison):
     for i in coordinaten:
         huis = coordinaten[i]
         map.create_rectangle(huis[0], huis[1], huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)

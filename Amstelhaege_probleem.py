@@ -38,8 +38,6 @@ height = 180
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 
-coordinaten = []
-
 def huizenPlaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):
         randomX = randint(0, int(160 - eengezinswoning.breedte))
@@ -54,20 +52,8 @@ def huizenPlaatsen():
         randomY = randint(0, int(180 - maison.diepte))
         map.create_rectangle(randomX, randomY, randomX + maison.breedte, randomY + maison.diepte, fill="yellow")
 
-def huizenPlaatsen2():
-    for j in range(int(eengezinswoning.percentage * maxHuizen)):
-        randomX = randint(0, int(160 - eengezinswoning.breedte))
-        randomY = randint(0, int(180 - eengezinswoning.diepte))
-        coordinaten.append(randomX, randomY)
-    for k in range(int(bungalo.percentage * maxHuizen)):
-        randomX = randint(0, int(160 - bungalo.breedte))
-        randomY = randint(0, int(180 - bungalo.diepte))
-        map.create_rectangle(randomX, randomY, randomX + bungalo.breedte, randomY + bungalo.diepte, fill="blue")
-    for l in range(int(maison.percentage * maxHuizen)):
-        randomX = randint(0, int(160 - maison.breedte))
-        randomY = randint(0, int(180 - maison.diepte))
-        map.create_rectangle(randomX, randomY, randomX + maison.breedte, randomY + maison.diepte, fill="yellow")
-
+#def huizenPlaatsen2()
+#    for i in range(int())
 #visualiseren
 master = Tk()
 

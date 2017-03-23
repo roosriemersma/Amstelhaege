@@ -24,6 +24,9 @@ class Woning(object):
     #    self.percentage = percentage
     #    self.kleur = kleur
 
+    def spaceBetweenHomes:
+
+
     def __repr__(self):
         return "huis:{}".format(self.breedte)
 
@@ -84,17 +87,16 @@ def huizenPlaatsen():
         huizenCoordinaten.append(randomX, randomY)
 
 
-def huizenLeuk(Woning):
+def plaatsWoning(Single, Bungalo, Maison):
     for i in range(int(Woning.percentage * maxHuizen)):
         randx = randint(0, int(160 - Woning.breedte))76
         randy = randint(0, int(180 - Woning.diepte))
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)
 
-def huisTekenen(Woning):
-    for i in coordinaten:
-        huis = coordinaten[i]
-        map.create_rectangle(huis[0], huis[1], huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)
+def tekenWoning(Single, Bungalo, Maison):
+    for i in coordinaten
+        map.create_rectangle(coordinaten[i].x, coordinaten[i].y , huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)
 
 #def huizenPlaatsen2()
 #    for i in range(int())

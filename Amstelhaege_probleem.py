@@ -57,6 +57,7 @@ height = 180
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 huizenCoordinaten = []
+coordinaat = []
 
 def vindCoordinaten(breedte, diepte):
     coordinatenInvalid = TRUE
@@ -69,20 +70,23 @@ def vindCoordinaten(breedte, diepte):
 
 coordinaten = []
 
+def zijnCoordinatenVrij(x, y):
+    #hier ga ik een functie schrijven die controleert of coordinaten bruikbaar zijn
+
 def huizenPlaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):
-            randomX = randint(0, int(160 - eengezinswoning.breedte))
-            randomY = randint(0, int(180 - eengezinswoning.diepte))
+        randomX = randint(eengezinswoning.vrijeruimte, int(width - eengezinswoning.breedte - eengezinswoning.vrijeruimte))
+        randomY = randint(eengezinswoning.vrijeruimte, int(height - eengezinswoning.diepte - eengezinswoning.vrijeruimte))
         map.create_rectangle(randomX, randomY, randomX + eengezinswoning.breedte, randomY + eengezinswoning.diepte, fill="red")
         huizenCoordinaten.append(randomX, randomY)
     for k in range(int(bungalo.percentage * maxHuizen)):
-        randomX = randint(0, int(160 - bungalo.breedte))
-        randomY = randint(0, int(180 - bungalo.diepte))
+        randomX = randint(bungalo.vrijeruimte, int(width - bungalo.breedte - bungalo.vrijeruimte))
+        randomY = randint(bungalo.vrijeruimte, int(height - bungalo.diepte - bungalo.vrijeruimte))
         map.create_rectangle(randomX, randomY, randomX + bungalo.breedte, randomY + bungalo.diepte, fill="blue")
         huizenCoordinaten.append(randomX, randomY)
     for l in range(int(maison.percentage * maxHuizen)):
-        randomX = randint(0, int(160 - maison.breedte))
-        randomY = randint(0, int(180 - maison.diepte))
+        randomX = randint(maison.vrijeruimte, int(width - maison.breedte - maison.vrijeruimte))
+        randomY = randint(maison.vrijeruimte, int(height - maison.diepte - maison.vrijeruimte))
         map.create_rectangle(randomX, randomY, randomX + maison.breedte, randomY + maison.diepte, fill="yellow")
         huizenCoordinaten.append(randomX, randomY)
 

@@ -25,6 +25,8 @@ class Woning(object):
     #    self.kleur = kleur
 
     def spaceBetweenHomes:
+        # Functie die de ruimte tussen woningen bepaald
+
 
 
     def __repr__(self):

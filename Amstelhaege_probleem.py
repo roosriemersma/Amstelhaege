@@ -40,9 +40,8 @@ def vindCoordinaten(breedte, diepte):
     while coordinatenInvalid:
         randomX = randint(0, int(160 - breedte))
         randomY = randint(0, int(180 - diepte))
-        for i in range len(huizenCoordinaten)
-            coo = woningen[i]
-            if randomX >= coo.x and randomX <= (coo.x+breedte) and randomY >= coo.y and randomY <= (coo.y+diepte):
+        for woning in range woningen
+            if randomX >= woning.x and randomX <= (woning.x+breedte) and randomY >= woning.y and randomY <= (woning.y+diepte):
                 coordinatenInvalid = FALSE
     nieuwCoordinaat = [randomX, randomY]
     return nieuwCoordinaat

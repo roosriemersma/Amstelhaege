@@ -16,19 +16,35 @@ from tkinter import *
 print("Maartje is de shit")
 
 class Woning(object):
-    def __init__(self, breedte, diepte, waarde, waardeStijging, percentage):
-        self.breedte = breedte
-        self.diepte = diepte
-        self.waarde = waarde
-        self.waardeStijging = waardeStijging
-        self.percentage = percentage
+    #def __init__(self, breedte, diepte, waarde, waardeStijging, percentage):
+    #    self.breedte = breedte
+    #    self.diepte = diepte
+    #    self.waarde = waarde
+    #    self.waardeStijging = waardeStijging
+    #    self.percentage = percentage
+    #    self.kleur = kleur
 
     def __repr__(self):
         return "huis:{}".format(self.breedte)
 
-eengezinswoning = Woning(8, 8, 285000, 0.03, 0.6)
-bungalo = Woning(10, 7.5, 399000, 0.04, 0.25)
-maison = Woning(11, 10.5, 610000, 0.06, 0.15)
+class Maison(Woning):
+    breedte = 11
+    diepte = 10.5
+    waarde = 1
+    waardeStijging = 1
+    percentage = 0.1
+    kleur = "rood"
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+Maison.waarde
+maison = Maison(3,5)
+maison.x
+eengezinswoning = Woning(8, 8, 285000, 0.03, 0.6, "red")
+bungalo = Woning(10, 7.5, 399000, 0.04, 0.25, "green")
+maison = Woning(11, 10.5, 610000, 0.06, 0.15, "yellow")
 
 print(eengezinswoning)
 
@@ -48,6 +64,8 @@ def vindCoordinaten(breedte, diepte):
         for i in range len(huizenCoordinaten)
         if randomX >= 0 and randomX <= 10 and randomY >= 0 and randomY <= 10
             coordinatenInvalid = FALSE
+
+coordinaten = []
 
 def zijnCoordinatenVrij(x, y):
     #hier ga ik een functie schrijven die controleert of coordinaten bruikbaar zijn
@@ -70,6 +88,18 @@ def huizenPlaatsen():
         huizenCoordinaten.append(randomX, randomY)
 
 
+def huizenLeuk(Woning):
+    for i in range(int(Woning.percentage * maxHuizen)):
+        randx = randint(0, int(160 - Woning.breedte))76
+        randy = randint(0, int(180 - Woning.diepte))
+        coordinaatHuis = [randx, randy]
+        coordinaten.append(coordinaatHuis)
+
+def huisTekenen(Woning):
+    for i in coordinaten:
+        huis = coordinaten[i]
+        map.create_rectangle(huis[0], huis[1], huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)
+
 #def huizenPlaatsen2()
 #    for i in range(int())
 #visualiseren
@@ -78,6 +108,6 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 
-huizenPlaatsen()
+huisPlaatsen()
 
 mainloop()

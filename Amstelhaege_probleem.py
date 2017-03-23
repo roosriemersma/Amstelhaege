@@ -17,6 +17,11 @@ import Maison
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
+print("Maaartje is de shit")
+
+
+
+print(eengezinswoning)
 print("Maartje is de shit")
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
@@ -64,8 +69,8 @@ def plaatsWoning(Single, Bungalo, Maison):
         coordinaten.append(coordinaatHuis)
 
 def tekenWoning(Single, Bungalo, Maison):
-    for i in coordinaten
-        map.create_rectangle(coordinaten[i].x, coordinaten[i].y , huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)
+    for woning in woningen:
+        map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
 
 #def huizenPlaatsen2()
 #    for i in range(int())

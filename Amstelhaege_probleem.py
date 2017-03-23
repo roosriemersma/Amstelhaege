@@ -26,27 +26,17 @@ hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 woningen = []
 
-#def vindCoordinaten(breedte, diepte):
-#    coordinatenInvalid = TRUE
-#    while coordinatenInvalid:
-#        randomX = randint(0, int(160 - breedte))
-#        randomY = randint(0, int(180 - diepte))
-#        for i in range len(huizenCoordinaten)
-#        if randomX >= 0 and randomX <= 10 and randomY >= 0 and randomY <= 10
- #           coordinatenInvalid = FALSE
-
 def vindCoordinaten(breedte, diepte):
     coordinatenInvalid = TRUE
     while coordinatenInvalid:
         randomX = randint(0, int(160 - breedte))
         randomY = randint(0, int(180 - diepte))
-        for woning in range woningen
+        for woning in woningen
             if randomX >= woning.x and randomX <= (woning.x+breedte) and randomY >= woning.y and randomY <= (woning.y+diepte):
                 coordinatenInvalid = FALSE
     nieuwCoordinaat = [randomX, randomY]
     return nieuwCoordinaat
 
-coordinaten = []
 
 def huizenPlaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):

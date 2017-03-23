@@ -53,11 +53,6 @@ def huizenPlaatsen():
         randomY = randint(maison.vrijeruimte, int(height - maison.diepte - maison.vrijeruimte))
         map.create_rectangle(randomX, randomY, randomX + maison.breedte, randomY + maison.diepte, fill="yellow")
 
-
-#def huizenPlaatsen2()
-#    for i in range(int())
-
-
 #visualiseren
 master = Tk()
 

@@ -17,7 +17,7 @@ import Maison
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
-print("Maartje is de shit")
+print("Maaartje is de shit")
 
 class Woning(object):
     #def __init__(self, breedte, diepte, waarde, waardeStijging, percentage):
@@ -58,7 +58,6 @@ height = 180
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 huizenCoordinaten = []
-coordinaat = []
 
 #def vindCoordinaten(breedte, diepte):
 #    coordinatenInvalid = TRUE
@@ -68,11 +67,19 @@ coordinaat = []
 #        for i in range len(huizenCoordinaten)
 #        if randomX >= 0 and randomX <= 10 and randomY >= 0 and randomY <= 10
  #           coordinatenInvalid = FALSE
+def vindCoordinaten(breedte, diepte):
+    coordinatenInvalid = TRUE
+    while coordinatenInvalid:
+        randomX = randint(0, int(160 - breedte))
+        randomY = randint(0, int(180 - diepte))
+        for i in range len(huizenCoordinaten)
+            coo = huizenCoordinaten[i]
+            if randomX >= coo.x and randomX <= (coo.x+breedte) and randomY >= coo.y and randomY <= (coo.y+diepte):
+                coordinatenInvalid = FALSE
+    nieuwCoordinaat = [randomX, randomY]
+    return nieuwCoordinaat
 
 coordinaten = []
-
-def zijnCoordinatenVrij(x, y):
-    #hier ga ik een functie schrijven die controleert of coordinaten bruikbaar zijn
 
 def huizenPlaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):

@@ -38,6 +38,7 @@ height = 180
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 huizenCoordinaten = []
+coordinaat = []
 
 def vindCoordinaten(breedte, diepte):
     coordinatenInvalid = TRUE
@@ -47,6 +48,9 @@ def vindCoordinaten(breedte, diepte):
         for i in range len(huizenCoordinaten)
         if randomX >= 0 and randomX <= 10 and randomY >= 0 and randomY <= 10
             coordinatenInvalid = FALSE
+
+def zijnCoordinatenVrij(x, y):
+    #hier ga ik een functie schrijven die controleert of coordinaten bruikbaar zijn
 
 def huizenPlaatsen():
     for j in range(int(eengezinswoning.percentage * maxHuizen)):

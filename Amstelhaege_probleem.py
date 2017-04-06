@@ -64,9 +64,11 @@ def plaatsWoning(typeWoning):
     woningen.append(woning)
     return woning
 
-def tekenWoning(typeWoning):
+
+def tekenWoningen(woningen):
     for woning in woningen:
         map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
+
 
 for i in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
@@ -76,6 +78,9 @@ for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
 
 
+def tekenWoning(Single, Bungalo, Maison):
+    for woning in woningen:
+        map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
 
 #def huizenPlaatsen2()
 #    for i in range(int())
@@ -85,6 +90,8 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 
-huizenPlaatsen()
+#huizenPlaatsen()
+tekenWoningen(woningen)
+
 
 mainloop()

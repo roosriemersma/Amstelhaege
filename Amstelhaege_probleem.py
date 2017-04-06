@@ -55,7 +55,7 @@ def huizenPlaatsen():
 
 
 def plaatsWoning(typeWoning):
-    woning = typeWoning(3,4)
+    woning = typeWoning(x,y)
     for i in range(int(Woning.aandeelHuizen * maxHuizen)):
         randx = randint(0, int(160 - Woning.breedte))#76
         randy = randint(0, int(180 - Woning.diepte))
@@ -63,7 +63,13 @@ def plaatsWoning(typeWoning):
         coordinaten.append(coordinaatHuis)
     return woning
 
-plaatsWoning(Woning.Bungalo)
+for i in range(Bungalo.aandeelHuizen * maxHuizen):
+    plaatsWoning(Woning.Bungalo)
+for j in range(Single.aandeelHuizen * maxHuizen):
+    plaatsWoning(Woning.Single)
+for k in range(Maison.aandeelHuizen * maxHuizen):
+    plaatsWoning(Woning.Maison)
+
 
 def tekenWoning(Single, Bungalo, Maison):
     for woning in woningen:

@@ -25,14 +25,16 @@ woningen = []
 def vindCoordinaten(typeWoning):
     breedte = typeWoning.breedte
     diepte = typeWoning.diepte
-    coordinatenInvalid = TRUE
-    while coordinatenInvalid:
+    coordinatenValid = FALSE
+    nieuwCoordinaat = []
+    while not coordinatenValid:
+        coordinatenValid = TRUE
         randomX = randint(0, int(160 - breedte))
         randomY = randint(0, int(180 - diepte))
         for woning in woningen:
             if randomX >= woning.x and randomX <= (woning.x+breedte) and randomY >= woning.y and randomY <= (woning.y+diepte):
-                coordinatenInvalid = FALSE
-    nieuwCoordinaat = [randomX, randomY]
+                coordinatenValid = FALSE
+        nieuwCoordinaat = [randomX, randomY]
     return nieuwCoordinaat
 
 

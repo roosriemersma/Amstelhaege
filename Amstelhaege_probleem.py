@@ -63,7 +63,7 @@ def huizenPlaatsen():
 
 def plaatsWoning(Single, Bungalo, Maison):
     for i in range(int(Woning.percentage * maxHuizen)):
-        randx = randint(0, int(160 - Woning.breedte))76
+        randx = randint(0, int(160 - Woning.breedte))#76
         randy = randint(0, int(180 - Woning.diepte))
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)

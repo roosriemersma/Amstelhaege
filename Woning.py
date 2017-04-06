@@ -1,6 +1,6 @@
 class Woning(object):
 
-    def RuimteTussenWoningen
+    #def RuimteTussenWoningen:
         # Berekend de vrije ruimte
 
     def __repr__(self):

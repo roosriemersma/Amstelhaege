@@ -22,6 +22,7 @@ hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 woningen = []
 
+
 def vindCoordinaten(typeWoning):
     breedte = typeWoning.breedte
     diepte = typeWoning.diepte
@@ -67,14 +68,14 @@ def plaatsWoning(typeWoning):
 
 def tekenWoningen(woningen):
     for woning in woningen:
-        map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
+        map.create_rectangle(woning.x, woning.y, woning.x + woning.breedte , woning.y + woning.diepte , fill = woning.kleur)
 
 
-for i in range(int(Woning.Bungalo.aandeelHuizen * 60)):
+for i in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
-for j in range(int(Woning.Single.aandeelHuizen * 60)):
+for j in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Single)
-for k in range(int(Woning.Maison.aandeelHuizen * 60)):
+for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
 
 
@@ -95,3 +96,4 @@ tekenWoningen(woningen)
 
 
 mainloop()
+

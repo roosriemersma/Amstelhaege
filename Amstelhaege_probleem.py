@@ -30,11 +30,11 @@ def vindCoordinaten(typeWoning):
     nieuwCoordinaat = []
     while not coordinatenValid:
         coordinatenValid = True
-        randomX = randint(0, int(160 - breedte))
-        randomY = randint(0, int(180 - diepte))
+        randomX = randint(0, int(width - breedte))
+        randomY = randint(0, int(height - diepte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
-            if randomX >= woning.x and randomX <= (woning.x+woning.breedte) and randomY >= woning.y and randomY <= (woning.y+woning.diepte):
+            if randomX >= (woning.x - breedte) and randomX <= (woning.x+woning.breedte) and randomY >= (woning.y - diepte) and randomY <= (woning.y+woning.diepte):
                 coordinatenValid = False
                 #if abs(randomX - woning.x) < woning.vrijeruimte and abs(randomY - woning.y) < woning.vrijeruimte
 
@@ -83,8 +83,8 @@ for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
 
 
 
-#def huizenPlaatsen2()
-#    for i in range(int())
+
+
 #visualiseren
 master = Tk()
 

@@ -32,11 +32,12 @@ def vindCoordinaten(typeWoning):
         coordinatenValid = True
         randomX = randint(0, int(160 - breedte))
         randomY = randint(0, int(180 - diepte))
+        nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
             if randomX >= woning.x and randomX <= (woning.x+woning.breedte) and randomY >= woning.y and randomY <= (woning.y+woning.diepte):
                 coordinatenValid = False
-                if randomX - woning.x < woning.vrij
-        nieuwCoordinaat = [randomX, randomY]
+                #if abs(randomX - woning.x) < woning.vrijeruimte and abs(randomY - woning.y) < woning.vrijeruimte
+
     return nieuwCoordinaat
 
 

@@ -36,7 +36,7 @@ def vindCoordinaten(breedte, diepte):
     while coordinatenInvalid:
         randomX = randint(0, int(160 - breedte))
         randomY = randint(0, int(180 - diepte))
-        for woning in woningen
+        for woning in woningen:
             if randomX >= woning.x and randomX <= (woning.x+breedte) and randomY >= woning.y and randomY <= (woning.y+diepte):
                 coordinatenInvalid = FALSE
     nieuwCoordinaat = [randomX, randomY]
@@ -63,7 +63,7 @@ def huizenPlaatsen():
 
 def plaatsWoning(Single, Bungalo, Maison):
     for i in range(int(Woning.percentage * maxHuizen)):
-        randx = randint(0, int(160 - Woning.breedte))76
+        randx = randint(0, int(160 - Woning.breedte))#76
         randy = randint(0, int(180 - Woning.diepte))
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)

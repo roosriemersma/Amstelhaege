@@ -17,6 +17,11 @@ import Maison
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
+print("Maaartje is de shit")
+
+
+
+print(eengezinswoning)
 print("Maartje is de shit")
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
@@ -57,17 +62,18 @@ def huizenPlaatsen():
 
 
 def plaatsWoning(Single, Bungalo, Maison):
-    for i in range(int(Woning.aand * maxHuizen)):
-        randx = randint(0, int(160 - Woning.breedte))
+    for i in range(int(Woning.percentage * maxHuizen)):
+        randx = randint(0, int(160 - Woning.breedte))76
         randy = randint(0, int(180 - Woning.diepte))
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)
 
-def huisTekenen(Single, Bungalo, Maison):
-    for i in coordinaten:
-        huis = coordinaten[i]
-        map.create_rectangle(huis[0], huis[1], huis[0] + Woning.breedte, huis[1] + Woning.diepte, fill = Woning.kleur)
+def tekenWoning(Single, Bungalo, Maison):
+    for woning in woningen:
+        map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
 
+#def huizenPlaatsen2()
+#    for i in range(int())
 #visualiseren
 master = Tk()
 

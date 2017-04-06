@@ -10,19 +10,10 @@ import random
 from random import randint
 from tkinter import *
 import Woning
-import Single
-import Bungalo
-import Maison
 
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
-print("Maaartje is de shit")
-
-
-
-print(eengezinswoning)
-print("Maartje is de shit")
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
 width = 160
@@ -31,7 +22,9 @@ hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 woningen = []
 
-def vindCoordinaten(breedte, diepte):
+def vindCoordinaten(typeWoning):
+    breedte = typeWoning.breedte
+    diepte = typeWoning.diepte
     coordinatenInvalid = TRUE
     while coordinatenInvalid:
         randomX = randint(0, int(160 - breedte))
@@ -44,29 +37,33 @@ def vindCoordinaten(breedte, diepte):
 
 
 def huizenPlaatsen():
-    for j in range(int(Single.Single.aandeelHuizen * maxHuizen)):
-        randomX = randint(Single.Single.vrijeruimte, int(width - Single.Single.breedte - Single.Single.vrijeruimte))
-        randomY = randint(Single.Single.vrijeruimte, int(height - Single.Single.diepte - Single.Single.vrijeruimte))
-        map.create_rectangle(randomX, randomY, randomX + Single.Single.breedte, randomY + Single.Single.diepte, fill="red")
+    for j in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
+        randomX = randint(Woning.Single.vrijeruimte, int(width - Woning.Single.breedte - Woning.Single.vrijeruimte))
+        randomY = randint(Woning.Single.vrijeruimte, int(height - Woning.Single.diepte - Woning.Single.vrijeruimte))
+        map.create_rectangle(randomX, randomY, randomX + Woning.Single.breedte, randomY + Woning.Single.diepte, fill="red")
   #      huizenCoordinaten.append(randomX, randomY)
-    for k in range(int(Bungalo.Bungalo.percentage * maxHuizen)):
-        randomX = randint(Bungalo.Bungalo.vrijeruimte, int(width - Bungalo.Bungalo.breedte - Bungalo.Bungalo.vrijeruimte))
-        randomY = randint(Bungalo.Bungalo.vrijeruimte, int(height - Bungalo.Bungalo.diepte - Bungalo.Bungalo.vrijeruimte))
-        map.create_rectangle(randomX, randomY, randomX + Bungalo.Bungalo.breedte, randomY + Bungalo.Bungalo.diepte, fill="blue")
+    for k in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
+        randomX = randint(Woning.Bungalo.vrijeruimte, int(width - Woning.Bungalo.breedte - Woning.Bungalo.vrijeruimte))
+        randomY = randint(Woning.Bungalo.vrijeruimte, int(height - Woning.Bungalo.diepte - Woning.Bungalo.vrijeruimte))
+        map.create_rectangle(randomX, randomY, randomX + Woning.Bungalo.breedte, randomY + Woning.Bungalo.diepte, fill="blue")
    #     huizenCoordinaten.append(randomX, randomY)
-    for l in range(int(Maison.Maison.percentage * maxHuizen)):
-        randomX = randint(Maison.Maison.vrijeruimte, int(width - Maison.Maison.breedte - Maison.Maison.vrijeruimte))
-        randomY = randint(Maison.Maison.vrijeruimte, int(height - Maison.Maison.diepte - Maison.Maison.vrijeruimte))
-        map.create_rectangle(randomX, randomY, randomX + Maison.Maison.breedte, randomY + Maison.Maison.diepte, fill="yellow")
+    for l in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
+        randomX = randint(Woning.Maison.vrijeruimte, int(width - Woning.Maison.breedte - Woning.Maison.vrijeruimte))
+        randomY = randint(Woning.Maison.vrijeruimte, int(height - Woning.Maison.diepte - Woning.Maison.vrijeruimte))
+        map.create_rectangle(randomX, randomY, randomX + Woning.Maison.breedte, randomY + Woning.Maison.diepte, fill="yellow")
     #    huizenCoordinaten.append(randomX, randomY)
 
 
-def plaatsWoning(Single, Bungalo, Maison):
-    for i in range(int(Woning.percentage * maxHuizen)):
+def plaatsWoning(typeWoning):
+    woning = typeWoning(3,4)
+    for i in range(int(Woning.aandeelHuizen * maxHuizen)):
         randx = randint(0, int(160 - Woning.breedte))#76
         randy = randint(0, int(180 - Woning.diepte))
         coordinaatHuis = [randx, randy]
         coordinaten.append(coordinaatHuis)
+    return woning
+
+plaatsWoning(Woning.Bungalo)
 
 def tekenWoning(Single, Bungalo, Maison):
     for woning in woningen:
@@ -80,6 +77,6 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 
-huisPlaatsen()
+huizenPlaatsen()
 
 mainloop()

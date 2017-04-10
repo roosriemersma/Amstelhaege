@@ -59,8 +59,13 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
-#for l in range(4):
-    #plaatsWoning(Woning.Water)
+
+
+def tekenWoning(woningen):
+    for woning in woningen:
+        map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
+
+
 
 #visualiseren
 master = Tk()

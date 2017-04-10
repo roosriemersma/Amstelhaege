@@ -16,8 +16,9 @@ import Woning
 
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
-width = 160
-height = 180
+width = 160 * 3
+height = 180 * 3
+oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 woningen = []
@@ -30,32 +31,13 @@ def vindCoordinaten(typeWoning):
     nieuwCoordinaat = []
     while not coordinatenValid:
         coordinatenValid = True
-        randomX = randint(0, int(width - breedte))
-        randomY = randint(0, int(height - diepte))
+        randomX = randint(typeWoning.vrijeruimte, int(width - breedte))
+        randomY = randint(typeWoning.vrijeruimte, int(height - diepte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
-            if randomX >= (woning.x - breedte) and randomX <= (woning.x+woning.breedte) and randomY >= (woning.y - diepte) and randomY <= (woning.y+woning.diepte):
+            if randomX >= (woning.x - breedte - typeWoning.vrijeruimte) and randomX <= (woning.x + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.y - diepte - typeWoning.vrijeruimte) and randomY <= (woning.y + woning.diepte + typeWoning.vrijeruimte):
                 coordinatenValid = False
     return nieuwCoordinaat
-
-
-def huizenPlaatsen():
-    for j in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
-        randomX = randint(Woning.Single.vrijeruimte, int(width - Woning.Single.breedte - Woning.Single.vrijeruimte))
-        randomY = randint(Woning.Single.vrijeruimte, int(height - Woning.Single.diepte - Woning.Single.vrijeruimte))
-        map.create_rectangle(randomX, randomY, randomX + Woning.Single.breedte, randomY + Woning.Single.diepte, fill="red")
-  #      huizenCoordinaten.append(randomX, randomY)
-    for k in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
-        randomX = randint(Woning.Bungalo.vrijeruimte, int(width - Woning.Bungalo.breedte - Woning.Bungalo.vrijeruimte))
-        randomY = randint(Woning.Bungalo.vrijeruimte, int(height - Woning.Bungalo.diepte - Woning.Bungalo.vrijeruimte))
-        map.create_rectangle(randomX, randomY, randomX + Woning.Bungalo.breedte, randomY + Woning.Bungalo.diepte, fill="blue")
-   #     huizenCoordinaten.append(randomX, randomY)
-    for l in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
-        randomX = randint(Woning.Maison.vrijeruimte, int(width - Woning.Maison.breedte - Woning.Maison.vrijeruimte))
-        randomY = randint(Woning.Maison.vrijeruimte, int(height - Woning.Maison.diepte - Woning.Maison.vrijeruimte))
-        map.create_rectangle(randomX, randomY, randomX + Woning.Maison.breedte, randomY + Woning.Maison.diepte, fill="yellow")
-    #    huizenCoordinaten.append(randomX, randomY)
-
 
 def plaatsWoning(typeWoning):
     nieuwCoordinaat = vindCoordinaten(typeWoning)
@@ -71,19 +53,14 @@ def tekenWoningen(woningen):
         map.create_rectangle(woning.x, woning.y, woning.x + woning.breedte , woning.y + woning.diepte , fill = woning.kleur)
 
 
-for i in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
-    plaatsWoning(Woning.Bungalo)
-for j in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
+for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Single)
+for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
+    plaatsWoning(Woning.Bungalo)
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
-
-
-def tekenWoning(woningen):
-    for woning in woningen:
-        map.create_rectangle(woning.x, woning.y , woning.x + woning.breedte, woning.y + woning.diepte, fill = woning.kleur)
-
-
+#for l in range(4):
+    #plaatsWoning(Woning.Water)
 
 #visualiseren
 master = Tk()
@@ -91,9 +68,6 @@ master = Tk()
 map = Canvas(master, width=width, height=height)
 map.pack()
 
-#huizenPlaatsen()
 tekenWoningen(woningen)
 
-
 mainloop()
-

@@ -16,8 +16,18 @@ class Single(Woning):
     vrijeruimte = 2 * 3
 
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.linksBovenX = x
+        self.linksBovenY = y
+
+        self.rechtsBovenX = x + self.breedte
+        self.rechtsBovenY = y
+
+        self.linksOnderX = x
+        self.linksOnderY = y = self.diepte
+
+        self.rechtsOnderX = x + self.breedte
+        self.rechtsOnderY = y + self.diepte
+
 
 class Bungalo(Woning):
     breedte = 10 * 3
@@ -29,8 +39,17 @@ class Bungalo(Woning):
     vrijeruimte = 3 * 3
 
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.linksBovenX = x
+        self.linksBovenY = y
+
+        self.rechtsBovenX = x + self.breedte
+        self.rechtsBovenY = y
+
+        self.linksOnderX = x
+        self.linksOnderY = y = self.diepte
+
+        self.rechtsOnderX = x + self.breedte
+        self.rechtsOnderY = y + self.diepte
 
 class Maison(Woning):
     breedte = 11 * 3
@@ -42,8 +61,17 @@ class Maison(Woning):
     vrijeruimte = 6 * 3
 
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.linksBovenX = x
+        self.linksBovenY = y
+
+        self.rechtsBovenX = x + self.breedte
+        self.rechtsBovenY = y
+
+        self.linksOnderX = x
+        self.linksOnderY = y = self.diepte
+
+        self.rechtsOnderX = x + self.breedte
+        self.rechtsOnderY = y + self.diepte
 
 class Water(Woning):
     breedte = 8 * 3
@@ -55,5 +83,14 @@ class Water(Woning):
     vrijeruimte = 0
 
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.linksBovenX = x
+        self.linksBovenY = y
+
+        self.rechtsBovenX = x + self.breedte
+        self.rechtsBovenY = y
+
+        self.linksOnderX = x
+        self.linksOnderY = y = self.diepte
+
+        self.rechtsOnderX = x + self.breedte
+        self.rechtsOnderY = y + self.diepte

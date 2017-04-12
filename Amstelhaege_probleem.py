@@ -7,10 +7,13 @@
 #20 huizen, 40 huizen of 60 huizen, huizensoort kan verschillen
 
 import random
+from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
+import random
 
+random.seed(1)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -35,47 +38,53 @@ def vindCoordinaten(typeWoning):
         randomY = randint(typeWoning.vrijeruimte, int(height - diepte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
-            if randomX >= (woning.x - breedte - typeWoning.vrijeruimte) and randomX <= (woning.x + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.y - diepte - typeWoning.vrijeruimte) and randomY <= (woning.y + woning.diepte + typeWoning.vrijeruimte):
+            if randomX >= (woning.linksBovenX - breedte - typeWoning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - typeWoning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + typeWoning.vrijeruimte):
                 coordinatenValid = False
     return nieuwCoordinaat
 
+
 def vrijstandTussen(woningA, woningB):
-    x1 = woningA.x
-    y1 = woningA.y
-    x1b = x1 + woningA.breedte
-    y1b = y1 + woningA.diepte
-    x2 = woningB.x
-    y2 = woningB.y
-    x2b = x2 + woningB.breedte
-    y2b = y2 + woningB.diepte
+    x1 = woningA.linksBovenX
+    y1 = woningA.linksBovenY
+    x1b = woningA.rechtsOnderX
+    y1b = woningA.rechtsOnderY
+
+    x2 = woningB.linksBovenX
+    y2 = woningB.linksBovenY
+    x2b = woningB.rechtsOnderX
+    y2b = woningB.rechtsOnderY
 
     left = x2b < x1
     right = x1b < x2
     bottom = y2b < y2
     top = y1b < y2
     if top and left:
-        print("afstand dist((x1, y1b), (x2b, y2)) = ", dist((x1, y1b), (x2b, y2)))    #hier moet Euclidean distance berekend worden
-        return dist((x1, y1b), (x2b, y2))
+        euclidean_distance = sqrt((x1 - x2b) ** 2 + (y1b - y2) ** 2)
+        print("euclidean_distance = ", euclidean_distance)
+        return euclidean_distance
     elif left and bottom:
-        print("afstand dist((x1, y1), (x2b, y2b)) = ", dist((x1, y1), (x2b, y2b)))   #hier moet Euclidean distance berekend worden
-        return dist((x1, y1), (x2b, y2b))
+        euclidean_distance = sqrt((x1 - x2b) ** 2 + (y1 - y2b) ** 2)
+        print(euclidean_distance)
+        return euclidean_distance
     elif bottom and right:
-        print("afstand dist((x1b, y1), (x2, y2b)) = ", dist((x1b, y1), (x2, y2b)))   #hier moet Euclidean distance berekend worden
-        return dist((x1b, y1), (x2, y2b))
+        euclidean_distance = sqrt((x1b - x2) ** 2 + (y1 - y2b) ** 2)
+        print(euclidean_distance)
+        return euclidean_distance
     elif right and top:
-        print("afstand dist((x1b, y1b), (x2, y2)) = ", dist((x1b, y1b), (x2, y2)))    #hier moet Euclidean distance berekend worden
-        return dist((x1b, y1b), (x2, y2))
+        euclidean_distance = sqrt((x1b - x2) ** 2 + (y1b - y2) ** 2)
+        print(euclidean_distance)
+        return euclidean_distance
     elif left:
-        print("afstand x1 - x2b = ", x1 - x2b)
+        print(x1 - x2b)
         return x1 - x2b
     elif right:
-        print("afstand x2 - x1b = ", x2 - x1b)
+        print(x2 - x1b)
         return x2 - x1b
     elif bottom:
-        print("afstand y1 - y2b = ", y1 - y2b)
+        print(y1 - y2b)
         return y1 - y2b
     elif top:
-        print("afstand y2 - y1b = ", y2 - y1b)
+        print(y2 - y1b)
         return y2 - y1b
 
 def plaatsWoning(typeWoning):
@@ -89,12 +98,14 @@ def plaatsWoning(typeWoning):
 
 def tekenWoningen(woningen):
     for woning in woningen:
-        map.create_rectangle(woning.x, woning.y, woning.x + woning.breedte , woning.y + woning.diepte , fill = woning.kleur)
+        index = woningen.index(woning)
+        map.create_rectangle(woning.linksBovenX, woning.linksBovenY, woning.linksBovenX + woning.breedte , woning.linksBovenY + woning.diepte , fill = woning.kleur)
+        map.create_text(woning.linksBovenX, woning.linksBovenY, text= index, font="Times 18 italic")
 
-def berekenVrijstand (huisA, huisB)
-    en dan zeggen we dus a nee oke bor. wat ik een beetje mee zit te struggelen nu. waarom is roos weg eigenlijk
-    tussen twee huizen de afstand kunnen berekenen is eerste zorg
-    later gaan we zorgen met een geneste for loop dat elke woning de afstand tot elke woning controleert.
+#def berekenVrijstand (huisA, huisB):
+#    en dan zeggen we dus a nee oke bor. wat ik een beetje mee zit te struggelen nu. waarom is roos weg eigenlijk
+#    tussen twee huizen de afstand kunnen berekenen is eerste zorg
+#    later gaan we zorgen met een geneste for loop dat elke woning de afstand tot elke woning controleert.
 
 for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Single)
@@ -103,7 +114,7 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
 
-vrijstandTussen(woningen[3], woningen[5])
+vrijstandTussen(woningen[1], woningen[19])
 
 #visualiseren
 master = Tk()

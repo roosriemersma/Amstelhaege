@@ -23,7 +23,7 @@ class Single(Woning):
         self.rechtsBovenY = y
 
         self.linksOnderX = x
-        self.linksOnderY = y = self.diepte
+        self.linksOnderY = y + self.diepte
 
         self.rechtsOnderX = x + self.breedte
         self.rechtsOnderY = y + self.diepte

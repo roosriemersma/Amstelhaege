@@ -91,6 +91,10 @@ def tekenWoningen(woningen):
     for woning in woningen:
         map.create_rectangle(woning.x, woning.y, woning.x + woning.breedte , woning.y + woning.diepte , fill = woning.kleur)
 
+def berekenVrijstand (huisA, huisB)
+    en dan zeggen we dus a nee oke bor. wat ik een beetje mee zit te struggelen nu. waarom is roos weg eigenlijk
+    tussen twee huizen de afstand kunnen berekenen is eerste zorg
+    later gaan we zorgen met een geneste for loop dat elke woning de afstand tot elke woning controleert.
 
 for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Single)

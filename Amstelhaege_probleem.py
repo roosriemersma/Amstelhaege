@@ -16,8 +16,8 @@ import Woning
 
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
-width = 160
-height = 180
+width = 450
+height = 500
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
 woningen = []
@@ -34,7 +34,8 @@ def vindCoordinaten(typeWoning):
         randomY = randint(0, int(height - diepte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
-            if randomX >= (woning.x - breedte) and randomX <= (woning.x+woning.breedte) and randomY >= (woning.y - diepte) and randomY <= (woning.y+woning.diepte):
+            if randomX >= (woning.x - breedte) and randomX <= (woning.x+woning.breedte) and\
+                            randomY >= (woning.y - diepte) and randomY <= (woning.y+woning.diepte):
                 coordinatenValid = False
                 #if abs(randomX - woning.x) < woning.vrijeruimte and abs(randomY - woning.y) < woning.vrijeruimte
 
@@ -69,7 +70,7 @@ def plaatsWoning(typeWoning):
 
 def tekenWoningen(woningen):
     for woning in woningen:
-        map.create_rectangle(woning.x, woning.y, woning.x + woning.breedte , woning.y + woning.diepte , fill = woning.kleur)
+        map.create_rectangle(woning.x, woning.y, woning.x + woning.breedte, woning.y + woning.diepte , fill = woning.kleur)
 
 
 for i in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
@@ -93,7 +94,8 @@ map.pack()
 
 #huizenPlaatsen()
 tekenWoningen(woningen)
-
+for woning in woningen:
+    print(woning.x, woning.y)
 
 mainloop()
 

@@ -13,7 +13,7 @@ from tkinter import *
 import Woning
 import random
 
-random.seed(1)
+random.seed(4)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -114,7 +114,7 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
 
-vrijstandTussen(woningen[1], woningen[19])
+vrijstandTussen(woningen[3], woningen[0])
 
 #visualiseren
 master = Tk()

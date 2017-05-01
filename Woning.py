@@ -7,13 +7,13 @@ class Woning(object):
         return "huis:{}".format(self.breedte)
 
 class Single(Woning):
-    breedte = 8 * 3
-    diepte = 8 * 3
+    breedte = 8
+    diepte = 8
     waarde = 285000
     waardeStijging = 0.03
     aandeelHuizen = 0.6
     kleur = "red"
-    vrijeruimte = 2 * 3
+    vrijeruimte = 2
 
     def __init__(self, x, y):
         self.linksBovenX = x
@@ -30,13 +30,13 @@ class Single(Woning):
 
 
 class Bungalo(Woning):
-    breedte = 10 * 3
-    diepte = 7.5 * 3
+    breedte = 10
+    diepte = 7.5
     waarde = 399000
     waardeStijging = 0.04
     aandeelHuizen = 0.25
     kleur = "yellow"
-    vrijeruimte = 3 * 3
+    vrijeruimte = 3
 
     def __init__(self, x, y):
         self.linksBovenX = x
@@ -52,13 +52,13 @@ class Bungalo(Woning):
         self.rechtsOnderY = y + self.diepte
 
 class Maison(Woning):
-    breedte = 11 * 3
-    diepte = 10.5 * 3
+    breedte = 11
+    diepte = 10.5
     waarde = 610000
     waardeStijging = 0.06
     aandeelHuizen = 0.15
     kleur = "green2"
-    vrijeruimte = 6 * 3
+    vrijeruimte = 6
 
     def __init__(self, x, y):
         self.linksBovenX = x
@@ -74,8 +74,8 @@ class Maison(Woning):
         self.rechtsOnderY = y + self.diepte
 
 class Water(Woning):
-    breedte = 8 * 3
-    diepte = 10 * 3
+    breedte = 8
+    diepte = 10
     waarde = 0
     waardeStijging = 0
     aandeelHuizen = 0

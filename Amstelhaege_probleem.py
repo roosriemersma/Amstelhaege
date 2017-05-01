@@ -13,14 +13,16 @@ from tkinter import *
 import Woning
 import random
 
-#random.seed(1)
+random.seed(1)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
-width = 160 * 3
-height = 180 * 3
+vergrotingHuizen = 3
+
+width = 160
+height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
@@ -96,8 +98,8 @@ def plaatsWoning(typeWoning):
 def tekenWoningen(woningen):
     for woning in woningen:
         index = woningen.index(woning)
-        map.create_rectangle(woning.linksBovenX, woning.linksBovenY, woning.linksBovenX + woning.breedte , woning.linksBovenY + woning.diepte , fill = woning.kleur)
-        map.create_text(woning.linksBovenX, woning.linksBovenY, text= index, font="Times 18 italic")
+        map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, (woning.linksBovenX + woning.breedte) * vergrotingHuizen , (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
+        map.create_text(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
 for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
@@ -113,13 +115,15 @@ for woning in woningen:
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
-                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
+                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
     print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
+
+
 
 #visualiseren
 master = Tk()
 
-map = Canvas(master, width=width, height=height)
+map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
 
 tekenWoningen(woningen)

@@ -13,7 +13,7 @@ from tkinter import *
 import Woning
 import random
 
-random.seed(4)
+#random.seed(1)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -44,48 +44,45 @@ def vindCoordinaten(typeWoning):
 
 
 def vrijstandTussen(woningA, woningB):
-    x1 = woningA.linksBovenX
-    y1 = woningA.linksBovenY
-    x1b = woningA.rechtsOnderX
-    y1b = woningA.rechtsOnderY
 
-    x2 = woningB.linksBovenX
-    y2 = woningB.linksBovenY
-    x2b = woningB.rechtsOnderX
-    y2b = woningB.rechtsOnderY
+    left = woningB.rechtsOnderX < woningA.linksBovenX
+    right = woningA.rechtsOnderX < woningB.linksBovenX
+    bottom = woningB.rechtsOnderY < woningA.linksBovenY
+    top = woningA.rechtsOnderY < woningB.linksBovenY
 
-    left = x2b < x1
-    right = x1b < x2
-    bottom = y2b < y2
-    top = y1b < y2
     if top and left:
-        euclidean_distance = sqrt((x1 - x2b) ** 2 + (y1b - y2) ** 2)
-        print("euclidean_distance = ", euclidean_distance)
+        euclidean_distance = sqrt((woningA.linksBovenX - woningB.rechtsOnderX) ** 2 + (woningA.rechtsOnderY - woningB.linksBovenY) ** 2)
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top and left")
         return euclidean_distance
     elif left and bottom:
-        euclidean_distance = sqrt((x1 - x2b) ** 2 + (y1 - y2b) ** 2)
-        print(euclidean_distance)
+        euclidean_distance = sqrt((woningA.linksBovenX - woningB.rechtsOnderX) ** 2 + (woningA.linksBovenY - woningB.rechtsOnderY) ** 2)
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left and bottom")
         return euclidean_distance
     elif bottom and right:
-        euclidean_distance = sqrt((x1b - x2) ** 2 + (y1 - y2b) ** 2)
-        print(euclidean_distance)
+        euclidean_distance = sqrt((woningA.rechtsOnderX - woningB.linksBovenX) ** 2 + (woningA.linksBovenY - woningB.rechtsOnderY) ** 2)
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom and right")
         return euclidean_distance
     elif right and top:
-        euclidean_distance = sqrt((x1b - x2) ** 2 + (y1b - y2) ** 2)
-        print(euclidean_distance)
+        euclidean_distance = sqrt((woningA.rechtsOnderX - woningB.linksBovenX) ** 2 + (woningA.rechtsOnderY - woningB.linksBovenY) ** 2)
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right and top")
         return euclidean_distance
     elif left:
-        print(x1 - x2b)
-        return x1 - x2b
+        euclidean_distance = woningA.linksBovenX - woningB.rechtsOnderX
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left")
+        return euclidean_distance
     elif right:
-        print(x2 - x1b)
-        return x2 - x1b
+        euclidean_distance = woningB.linksBovenX - woningA.rechtsOnderX
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right")
+        return euclidean_distance
     elif bottom:
-        print(y1 - y2b)
-        return y1 - y2b
+        euclidean_distance = woningA.linksBovenY - woningB.rechtsOnderY
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom")
+        return euclidean_distance
     elif top:
-        print(y2 - y1b)
-        return y2 - y1b
+        euclidean_distance = woningB.linksBovenY - woningA.rechtsOnderY
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top")
+        return euclidean_distance
+    print(woningA.linksBovenX, woningA.linksBovenY, woningB.linksBovenX, woningB.linksBovenY, )
 
 def plaatsWoning(typeWoning):
     nieuwCoordinaat = vindCoordinaten(typeWoning)
@@ -102,10 +99,6 @@ def tekenWoningen(woningen):
         map.create_rectangle(woning.linksBovenX, woning.linksBovenY, woning.linksBovenX + woning.breedte , woning.linksBovenY + woning.diepte , fill = woning.kleur)
         map.create_text(woning.linksBovenX, woning.linksBovenY, text= index, font="Times 18 italic")
 
-#def berekenVrijstand (huisA, huisB):
-#    en dan zeggen we dus a nee oke bor. wat ik een beetje mee zit te struggelen nu. waarom is roos weg eigenlijk
-#    tussen twee huizen de afstand kunnen berekenen is eerste zorg
-#    later gaan we zorgen met een geneste for loop dat elke woning de afstand tot elke woning controleert.
 
 for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Single)
@@ -114,7 +107,14 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
 
-vrijstandTussen(woningen[3], woningen[0])
+for woning in woningen:
+    index = int(woningen.index(woning))
+    shortest_euclidean_distance = 100000
+    for j in range (int(maxHuizen - 1)):
+        if j != index:
+            if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
+                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
+    print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 
 #visualiseren
 master = Tk()

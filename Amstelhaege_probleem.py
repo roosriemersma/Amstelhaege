@@ -13,7 +13,7 @@ from tkinter import *
 import Woning
 import random
 
-#random.seed(1)
+random.seed(1)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -109,7 +109,7 @@ for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
 
 for woning in woningen:
     index = int(woningen.index(woning))
-    shortest_euclidean_distance = 100000
+    shortest_euclidean_distance = 241 * 3
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:

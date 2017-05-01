@@ -54,35 +54,35 @@ def vrijstandTussen(woningA, woningB):
 
     if top and left:
         euclidean_distance = sqrt((woningA.linksBovenX - woningB.rechtsOnderX) ** 2 + (woningA.rechtsOnderY - woningB.linksBovenY) ** 2)
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top and left")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top and left")
         return euclidean_distance
     elif left and bottom:
         euclidean_distance = sqrt((woningA.linksBovenX - woningB.rechtsOnderX) ** 2 + (woningA.linksBovenY - woningB.rechtsOnderY) ** 2)
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left and bottom")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left and bottom")
         return euclidean_distance
     elif bottom and right:
         euclidean_distance = sqrt((woningA.rechtsOnderX - woningB.linksBovenX) ** 2 + (woningA.linksBovenY - woningB.rechtsOnderY) ** 2)
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom and right")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom and right")
         return euclidean_distance
     elif right and top:
         euclidean_distance = sqrt((woningA.rechtsOnderX - woningB.linksBovenX) ** 2 + (woningA.rechtsOnderY - woningB.linksBovenY) ** 2)
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right and top")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right and top")
         return euclidean_distance
     elif left:
         euclidean_distance = woningA.linksBovenX - woningB.rechtsOnderX
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left")
         return euclidean_distance
     elif right:
         euclidean_distance = woningB.linksBovenX - woningA.rechtsOnderX
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right")
         return euclidean_distance
     elif bottom:
         euclidean_distance = woningA.linksBovenY - woningB.rechtsOnderY
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom")
         return euclidean_distance
     elif top:
         euclidean_distance = woningB.linksBovenY - woningA.rechtsOnderY
-        print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top")
+        #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top")
         return euclidean_distance
     print(woningA.linksBovenX, woningA.linksBovenY, woningB.linksBovenX, woningB.linksBovenY, )
 
@@ -111,7 +111,7 @@ for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
 
 for woning in woningen:
     index = int(woningen.index(woning))
-    shortest_euclidean_distance = 241 * vergrotingHuizen
+    shortest_euclidean_distance = 241 * 3
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:

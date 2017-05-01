@@ -4,7 +4,7 @@
 #25% bungalo   10x7.5 = 75m2         3 meter   399000eu   4%
 #15% maison    11x10.5 = 115.5m2     6 meter   610000eu   6%
 #er zijn 3 opties waar de computer uit moet kiezen:
-#20 huizen, 40 huizen of 60 huizen, huizensoort kan verschillen
+#20 huizen, 40 huizen of 60 huizen, huizensoort kan verschilen
 
 import random
 from math import sqrt

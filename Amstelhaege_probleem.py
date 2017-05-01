@@ -119,7 +119,6 @@ for woning in woningen:
     print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 
 
-
 #visualiseren
 master = Tk()
 

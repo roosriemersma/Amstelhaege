@@ -1,3 +1,5 @@
+import random
+
 class Woning(object):
 
     #def RuimteTussenWoningen:
@@ -74,8 +76,23 @@ class Maison(Woning):
         self.rechtsOnderY = y + self.diepte
 
 class Water(Woning):
-    breedte = 8 * 3
-    diepte = 10 * 3
+    watereenheden = [1,2,3,4]
+    aantalWatereenheden = random.choice(watereenheden)
+
+    if aantalWatereenheden == 1:
+        breedte = random.randint(38, 152)
+        diepte = 5760 / breedte
+    elif aantalWatereenheden == 2:
+        breedte = random.randint(27, 107)
+        diepte = 2880/ breedte
+    elif aantalWatereenheden == 3:
+        breedte = random.randint(22, 87)
+        diepte = 1920 / breedte
+    elif aantalWatereenheden == 4:
+        breedte = random.randint(19, 76)
+        diepte = 1440 / breedte
+
+
     waarde = 0
     waardeStijging = 0
     aandeelHuizen = 0

@@ -13,14 +13,16 @@ from tkinter import *
 import Woning
 import random
 
-#random.seed(1)
+random.seed(2)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
 
 #soortwoning = {breedte, diepte, waarde, waardevermeerderingPerVrijstaandeMeter}
-width = 160 * 3
-height = 180 * 3
+vergrotingHuizen = 3
+
+width = 160
+height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = random.choice(hoeveelHuizen)
@@ -40,8 +42,6 @@ def vindCoordinaten(typeWoning):
         for woning in woningen:
             if randomX >= (woning.linksBovenX - breedte - typeWoning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - typeWoning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + typeWoning.vrijeruimte):
                 coordinatenValid = False
-                #if abs(randomX - woning.x) < woning.vrijeruimte and abs(randomY - woning.y) < woning.vrijeruimte
-
     return nieuwCoordinaat
 
 
@@ -98,8 +98,8 @@ def plaatsWoning(typeWoning):
 def tekenWoningen(woningen):
     for woning in woningen:
         index = woningen.index(woning)
-        map.create_rectangle(woning.linksBovenX, woning.linksBovenY, woning.linksBovenX + woning.breedte , woning.linksBovenY + woning.diepte , fill = woning.kleur)
-        map.create_text(woning.linksBovenX, woning.linksBovenY, text= index, font="Times 18 italic")
+        map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, (woning.linksBovenX + woning.breedte) * vergrotingHuizen , (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
+        map.create_text(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
 for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
@@ -113,17 +113,22 @@ for l in range(Woning.Water.aantalWatereenheden):
 
 for woning in woningen:
     index = int(woningen.index(woning))
-    shortest_euclidean_distance = 100000
+    shortest_euclidean_distance = 241 * 3
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
                 shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
     print("shortest euclidean distance from", index, "to", woning,  "=", shortest_euclidean_distance)
+                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
+    print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 
+print(woningen[15].linksBovenX, woningen[15].linksBovenY)
+print(woningen[0].linksBovenX, woningen[0].linksBovenY)
+print(woningen[14].linksBovenX, woningen[14].linksBovenY)
 #visualiseren
 master = Tk()
 
-map = Canvas(master, width=width, height=height)
+map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
 
 tekenWoningen(woningen)

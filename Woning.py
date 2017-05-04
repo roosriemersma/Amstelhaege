@@ -47,7 +47,7 @@ class Bungalo(Woning):
         self.rechtsBovenY = y
 
         self.linksOnderX = x
-        self.linksOnderY = y = self.diepte
+        self.linksOnderY = y + self.diepte
 
         self.rechtsOnderX = x + self.breedte
         self.rechtsOnderY = y + self.diepte
@@ -69,7 +69,7 @@ class Maison(Woning):
         self.rechtsBovenY = y
 
         self.linksOnderX = x
-        self.linksOnderY = y = self.diepte
+        self.linksOnderY = y + self.diepte
 
         self.rechtsOnderX = x + self.breedte
         self.rechtsOnderY = y + self.diepte
@@ -106,7 +106,7 @@ class Water(Woning):
         self.rechtsBovenY = y
 
         self.linksOnderX = x
-        self.linksOnderY = y = self.diepte
+        self.linksOnderY = y + self.diepte
 
         self.rechtsOnderX = x + self.breedte
         self.rechtsOnderY = y + self.diepte

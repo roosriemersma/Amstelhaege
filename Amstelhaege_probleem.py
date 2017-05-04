@@ -13,7 +13,7 @@ from tkinter import *
 import Woning
 import random
 
-random.seed(2)
+#random.seed(2)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -114,15 +114,27 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
-for l in range(Woning.Water.aantalWatereenheden):
-    plaatsWoning(Woning.Water)
 
 for woning in woningen:
     index = int(woningen.index(woning))
-    shortest_euclidean_distance = 241 * 3
+    shortest_euclidean_distance = 241 * vergrotingHuizen
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
+                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
+                Woning.kortsteAfstand = shortest_euclidean_distance
+    #print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
+
+
+def waardeKaartBerekenen(woningen):
+    waardeKaart = 0
+    for woning in woningen:
+        waardeWoning = woning.waarde + ((woning.kortsteAfstand - woning.vrijeruimte) * woning.waardeStijging)
+        waardeKaart = waardeKaart + waardeWoning
+    print("Waarde van de kaart =", waardeKaart)
+    return waardeKaart
+
+waardeKaartBerekenen(woningen)
                 shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
     print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 

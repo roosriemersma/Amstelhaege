@@ -109,6 +109,8 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
+for l in range(Woning.Water.aantalWatereenheden):
+    plaatsWoning(Woning.Water)
 
 for woning in woningen:
     index = int(woningen.index(woning))
@@ -116,6 +118,8 @@ for woning in woningen:
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
+                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
+    print("shortest euclidean distance from", index, "to", woning,  "=", shortest_euclidean_distance)
                 shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
     print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 

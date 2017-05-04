@@ -13,7 +13,7 @@ from tkinter import *
 import Woning
 import random
 
-random.seed(2)
+#random.seed(2)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -60,12 +60,10 @@ def vrijstandTussen(woningA, woningB):
         euclidean_distance = sqrt((woningA.linksOnderX - woningB.rechtsBovenX) ** 2 + (woningA.linksOnderY - woningB.rechtsBovenY) ** 2)
         #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left and bottom")
         return euclidean_distance
-        return 0
     elif bottom and right:
         euclidean_distance = sqrt((woningA.rechtsOnderX - woningB.linksBovenX) ** 2 + (woningA.rechtsOnderY - woningB.linksBovenY) ** 2)
         #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom and right")
         return euclidean_distance
-        return 0
     elif right and top:
         euclidean_distance = sqrt((woningA.rechtsBovenX - woningB.linksOnderX) ** 2 + (woningA.rechtsBovenY - woningB.linksOnderY) ** 2)
         #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right and top")
@@ -109,19 +107,27 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
-for l in range(Woning.Water.aantalWatereenheden):
-    plaatsWoning(Woning.Water)
 
 for woning in woningen:
     index = int(woningen.index(woning))
-    shortest_euclidean_distance = 241 * 3
+    shortest_euclidean_distance = 241 * vergrotingHuizen
     for j in range (int(maxHuizen - 1)):
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
-                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
-    print("shortest euclidean distance from", index, "to", woning,  "=", shortest_euclidean_distance)
                 shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
-    print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
+                Woning.kortsteAfstand = shortest_euclidean_distance
+    #print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
+
+
+def waardeKaartBerekenen(woningen):
+    waardeKaart = 0
+    for woning in woningen:
+        waardeWoning = woning.waarde + ((woning.kortsteAfstand - woning.vrijeruimte) * woning.waardeStijging)
+        waardeKaart = waardeKaart + waardeWoning
+    print("Waarde van de kaart =", waardeKaart)
+    return waardeKaart
+
+waardeKaartBerekenen(woningen)
 
 #visualiseren
 master = Tk()

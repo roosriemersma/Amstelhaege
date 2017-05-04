@@ -86,6 +86,13 @@ def vrijstandTussen(woningA, woningB):
         return euclidean_distance
     print(woningA.linksBovenX, woningA.linksBovenY, woningB.linksBovenX, woningB.linksBovenY, )
 
+def waardeKaartBerekenen(euclidean_distance):
+    waardekaart = 0
+    for woning in woningen:
+        waardehuis = woning.waarde + (euclidean_distance - woning.vrijeruimte)* woning.waardestijging
+        waardekaart = waardekaart + waardehuis
+    return waardekaart
+
 def plaatsWoning(typeWoning):
     nieuwCoordinaat = vindCoordinaten(typeWoning)
     x = nieuwCoordinaat[0]
@@ -118,8 +125,6 @@ for woning in woningen:
         if j != index:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
                 shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
-    print("shortest euclidean distance from", index, "to", woning,  "=", shortest_euclidean_distance)
-                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
     print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 
 print(woningen[15].linksBovenX, woningen[15].linksBovenY)
@@ -132,5 +137,5 @@ map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingH
 map.pack()
 
 tekenWoningen(woningen)
-
+waardeKaartBerekenen(woningen)
 mainloop()

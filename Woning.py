@@ -1,3 +1,4 @@
+import random
 class Woning(object):
 
     #def RuimteTussenWoningen:

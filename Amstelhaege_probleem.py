@@ -158,3 +158,7 @@ map.pack()
 tekenWoningen(besteWoningen)
 
 mainloop()
+
+
+
+#show()

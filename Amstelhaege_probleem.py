@@ -133,7 +133,7 @@ def conduct():
 hoogstewaardes = []
 iteraties = []
 
-for i in range(100000):
+for i in range(100):
     conduct()
     print(waardeKaart)
     if waardeKaart > hoogstewaarde:
@@ -144,10 +144,10 @@ for i in range(100000):
     waardeKaart = 0
     woningen = []
 
+print("De waarde van de beste kaart is ", hoogstewaarde)
+
 plt.plot(iteraties, hoogstewaardes)
 plt.show()
-
-print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #visualiseren
 master = Tk()

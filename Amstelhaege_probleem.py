@@ -25,7 +25,8 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = random.choice(hoeveelHuizen)
+#maxHuizen = random.choice(hoeveelHuizen)
+maxHuizen = 20
 woningen = []
 
 
@@ -107,6 +108,8 @@ for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Bungalo)
 for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
     plaatsWoning(Woning.Maison)
+#for l in range(int(Woning.Water.aantalWatereenheden)):
+ #   plaatsWoning(Woning.Water)
 
 for woning in woningen:
     index = int(woningen.index(woning))
@@ -116,13 +119,14 @@ for woning in woningen:
             if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
                 shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
                 Woning.kortsteAfstand = shortest_euclidean_distance
-    #print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
+    print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 
 
 def waardeKaartBerekenen(woningen):
     waardeKaart = 0
     for woning in woningen:
         waardeWoning = woning.waarde + ((woning.kortsteAfstand - woning.vrijeruimte) * woning.waardeStijging)
+        print(woning.kortsteAfstand)
         waardeKaart = waardeKaart + waardeWoning
     print("Waarde van de kaart =", waardeKaart)
     return waardeKaart

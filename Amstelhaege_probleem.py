@@ -27,7 +27,9 @@ oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
 maxHuizen = 20   #random.choice(hoeveelHuizen)
 woningen = []
+besteWoningen = []
 waardeKaart = 0
+hoogstewaarde = 0
 
 
 def vindCoordinaten(typeWoning):
@@ -130,10 +132,13 @@ def conduct():
 for i in range(5):
     conduct()
     print(waardeKaart)
-    hoogstewaarde = 0
     if waardeKaart > hoogstewaarde:
         hoogstewaarde = waardeKaart
+        besteWoningen = woningen
     waardeKaart = 0
+    woningen = []
+
+print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #visualiseren
 master = Tk()
@@ -141,6 +146,6 @@ master = Tk()
 map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
 
-tekenWoningen(woningen)
+tekenWoningen(besteWoningen)
 
 mainloop()

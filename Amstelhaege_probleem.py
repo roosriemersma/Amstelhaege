@@ -127,12 +127,13 @@ def conduct():
 
     #print(waardeKaart)
 
-for i in range(10000):
+for i in range(5):
     conduct()
-    #print(waardeKaart)
+    print(waardeKaart)
     hoogstewaarde = 0
     if waardeKaart > hoogstewaarde:
         hoogstewaarde = waardeKaart
+    waardeKaart = 0
 
 #visualiseren
 master = Tk()

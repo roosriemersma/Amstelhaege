@@ -11,6 +11,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
+import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -129,14 +130,16 @@ def conduct():
 
     #print(waardeKaart)
 
-for i in range(5):
+for i in range(10000):
     conduct()
     print(waardeKaart)
     if waardeKaart > hoogstewaarde:
         hoogstewaarde = waardeKaart
         besteWoningen = woningen
+        plt.scatter(i, hoogstewaarde)
     waardeKaart = 0
     woningen = []
+    plt.show()
 
 print("De waarde van de beste kaart is ", hoogstewaarde)
 

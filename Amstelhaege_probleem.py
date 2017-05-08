@@ -86,12 +86,6 @@ def vrijstandTussen(woningA, woningB):
         return euclidean_distance
     #print(woningA.linksBovenX, woningA.linksBovenY, woningB.linksBovenX, woningB.linksBovenY)
 
-def waardeKaartBerekenen(euclidean_distance):
-    waardekaart = 0
-    for woning in woningen:
-        waardehuis = woning.waarde + (euclidean_distance - woning.vrijeruimte)* woning.waardestijging
-        waardekaart = waardekaart + waardehuis
-    return waardekaart
 
 def plaatsWoning(typeWoning):
     nieuwCoordinaat = vindCoordinaten(typeWoning)

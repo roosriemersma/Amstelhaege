@@ -150,7 +150,7 @@ plt.show()
 
 print("De waarde van de beste kaart is ", hoogstewaarde)
 waardeKaartBerekenen(woningen)
-                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
+            shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])/3
     print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
 
 #visualiseren

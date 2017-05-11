@@ -11,7 +11,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -147,8 +147,8 @@ for i in range(100):
 
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
-plt.plot(iteraties, hoogstewaardes)
-plt.show()
+#plt.plot(iteraties, hoogstewaardes)
+#plt.show()
 
 #visualiseren
 master = Tk()
@@ -161,3 +161,7 @@ waardeKaartBerekenen(woningen)
 tekenWoningen(besteWoningen)
 
 mainloop()
+
+
+
+#show()

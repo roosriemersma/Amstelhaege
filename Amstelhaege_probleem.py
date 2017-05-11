@@ -11,9 +11,10 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
+import matplotlib.pyplot as plt
 import random
 
-#random.seed(2)
+#random.seed(3)
 #BELANGRIJKE BRONNEN
 #https://www.tutorialspoint.com/python/python_gui_programming.htm
 
@@ -25,9 +26,11 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-#maxHuizen = random.choice(hoeveelHuizen)
-maxHuizen = 20
+maxHuizen = 20   #random.choice(hoeveelHuizen)
 woningen = []
+besteWoningen = []
+waardeKaart = 0
+hoogstewaarde = 0
 
 
 def vindCoordinaten(typeWoning):
@@ -102,36 +105,43 @@ def tekenWoningen(woningen):
         map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, (woning.linksBovenX + woning.breedte) * vergrotingHuizen , (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
         map.create_text(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, text= index, font="Times 18 italic")
 
-for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
-    plaatsWoning(Woning.Single)
-for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
-    plaatsWoning(Woning.Bungalo)
-for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
-    plaatsWoning(Woning.Maison)
-#for l in range(int(Woning.Water.aantalWatereenheden)):
- #   plaatsWoning(Woning.Water)
 
-for woning in woningen:
-    index = int(woningen.index(woning))
-    shortest_euclidean_distance = 241 * vergrotingHuizen
-    for j in range (int(maxHuizen - 1)):
-        if j != index:
-            if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
-                shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
-                Woning.kortsteAfstand = shortest_euclidean_distance
-    print("shortest euclidean distance from", index, "=", shortest_euclidean_distance)
+#HEURISTIEKEN
 
 
-def waardeKaartBerekenen(woningen):
-    waardeKaart = 0
+def conduct():
+    for i in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Single)
+    for j in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Bungalo)
+    for k in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Maison)
+
     for woning in woningen:
-        waardeWoning = woning.waarde + ((woning.kortsteAfstand - woning.vrijeruimte) * woning.waardeStijging)
-        print(woning.kortsteAfstand)
-        waardeKaart = waardeKaart + waardeWoning
-    print("Waarde van de kaart =", waardeKaart)
-    return waardeKaart
+        index = int(woningen.index(woning))
+        shortest_euclidean_distance = 241 * vergrotingHuizen
+        for j in range (int(maxHuizen - 1)):
+            if j != index:
+                if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
+                    shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
+        #print(woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging))
+        global waardeKaart
+        waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
 
-waardeKaartBerekenen(woningen)
+    #print(waardeKaart)
+
+for i in range(10000):
+    conduct()
+    print(waardeKaart)
+    if waardeKaart > hoogstewaarde:
+        hoogstewaarde = waardeKaart
+        besteWoningen = woningen
+        plt.scatter(i, hoogstewaarde)
+    waardeKaart = 0
+    woningen = []
+    plt.show()
+
+print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #visualiseren
 master = Tk()
@@ -139,6 +149,6 @@ master = Tk()
 map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
 
-tekenWoningen(woningen)
+tekenWoningen(besteWoningen)
 
 mainloop()

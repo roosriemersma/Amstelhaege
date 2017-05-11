@@ -15,7 +15,7 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 20   #random.choice(hoeveelHuizen)
+maxHuizen = 20  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 waardeKaart = 0
@@ -121,20 +121,26 @@ def conduct():
 
     #print(waardeKaart)
 
-for i in range(100):
+hoogstewaardes = []
+iteraties = []
+
+for i in range(10000):
     conduct()
     print(waardeKaart)
     if waardeKaart > hoogstewaarde:
         hoogstewaarde = waardeKaart
         besteWoningen = woningen
-    #    plt.scatter(i, hoogstewaarde)
+    hoogstewaardes.append(hoogstewaarde)
+    iteraties.append(i)
     waardeKaart = 0
     woningen = []
-    #plt.show()
 
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #plt.plot(iteraties, hoogstewaardes)
+#plt.title('Kaartwaarde', fontsize=20)
+#plt.xlabel('Iteraties', fontsize=16)
+#plt.ylabel('Waarde in €', fontsize=16)
 #plt.show()
 
 #visualiseren

@@ -1,4 +1,3 @@
-
 import random
 from math import sqrt
 from random import randint
@@ -124,7 +123,7 @@ def conduct():
 hoogstewaardes = []
 iteraties = []
 
-for i in range(10000):
+for i in range(1000):
     conduct()
     print(waardeKaart)
     if waardeKaart > hoogstewaarde:

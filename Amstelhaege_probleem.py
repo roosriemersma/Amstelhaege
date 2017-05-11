@@ -99,15 +99,16 @@ def berekenVrijstandWoning(woning):
     shortest_euclidean_distance = 241 * vergrotingHuizen
     for j in range (int(maxHuizen - 1)):
         if j != woning:
-            if vrijstandTussen(woningen[woning], woningen[j]) < shortest_euclidean_distance:
-                shortest_euclidean_distance = vrijstandTussen(woningen[woning], woningen[j])
+            if woning is Woning.Single or Woning.Bungalo or Woning.Maison and woningen[j] is Woning.Single or Woning.Bungalo or Woning.Maison:
+                if vrijstandTussen(woningen[woning], woningen[j]) < shortest_euclidean_distance:
+                    shortest_euclidean_distance = vrijstandTussen(woningen[woning], woningen[j])
+    print(shortest_euclidean_distance)
     return shortest_euclidean_distance
 
 def berekenKaartWaarde():
     for woning in woningen:
         index = int(woningen.index(woning))
-        shortest_euclidean_distance = 241 * vergrotingHuizen
-        berekenVrijstandWoning(index)
+        shortest_euclidean_distance = berekenVrijstandWoning(index)
         global waardeKaart
         waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
 
@@ -155,18 +156,27 @@ def randomSampling(n):
 def hillClimber(n):
     usewoningen = randomSampling(1)
 #    for i in range (n):
-#        wijzigWoning = usewoningen[randint(0, maxHuizen)]
-#        huidigeVrijstand = berekenVrijstandWoning(wijzigWoning)
-#        while:
-#            wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + randint(1, 5)
-#            nieuweVrijstand = berekenVrijstandWoning(wijzigWoning)
-
-
+#            wijzigWoningNummer = randint(0, maxHuizen)
+#            wijzigWoning = usewoningen[wijzigWoningNummer]
+#            huidigeVrijstand = berekenVrijstandWoning(wijzigWoningNummer, usewoningen)
+#            verschuiving = randint(1, 3)
+#            gewijzigdewoning = wijzigWoning
+#            gewijzigdewoning.linksBovenX = gewijzigdewoning.linksBovenX + verschuiving
+#            usewoningen.append(gewijzigdewoning)
+#            nieuweVrijstand = berekenVrijstandWoning((len(usewoningen)-1), usewoningen)
+#            for woning in usewoningen:
+#                if (wijzigWoning.linksBovenX >= (woning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) \
+#                and wijzigWoning.linksBovenX <= (woning.linksBovenX + woning.breedte + wijzigWoning.vrijeruimte) \
+#                and wijzigWoning.linksBovenY >= (woning.linksBovenY - wijzigWoning.diepte - wijzigWoning.vrijeruimte) \
+#                and wijzigWoning.linksBovenY <= (woning.linksBovenY + woning.diepte + wijzigWoning.vrijeruimte) \
+#                and nieuweVrijstand > huidigeVrijstand):
+#                   wijzigWoning.linksBovenX = wijzigWoning.linksBovenX - verschuiving
+#                   print("overgeslagen")
 
 
 
 #UITVOEREN
-randomSampling(1)
+randomSampling(2)
 
 #visualiseren
 master = Tk()

@@ -92,7 +92,7 @@ def tekenWoningen(woningen):
     for woning in woningen:
         index = woningen.index(woning)
         map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, (woning.linksBovenX + woning.breedte) * vergrotingHuizen , (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
-        map.create_text(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, text= index, font="Times 18 italic")
+        map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
 #HEURISTIEKEN
@@ -121,27 +121,33 @@ def conduct():
 
     #print(waardeKaart)
 
-hoogstewaardes = []
-iteraties = []
+def randomSampling():
+    hoogstewaardes = []
+    iteraties = []
 
-for i in range(10000):
-    conduct()
-    print(waardeKaart)
-    if waardeKaart > hoogstewaarde:
-        hoogstewaarde = waardeKaart
-        besteWoningen = woningen
-    hoogstewaardes.append(hoogstewaarde)
-    iteraties.append(i)
-    waardeKaart = 0
-    woningen = []
+    for i in range(1000):
+        conduct()
+        global waardeKaart
+        global hoogstewaarde
+        global woningen
+        global besteWoningen
+        if waardeKaart > hoogstewaarde:
+            hoogstewaarde = waardeKaart
+            besteWoningen = woningen
+        hoogstewaardes.append(hoogstewaarde)
+        iteraties.append(i)
+        waardeKaart = 0
+        woningen = []
 
-print("De waarde van de beste kaart is ", hoogstewaarde)
+    print("De waarde van de beste kaart is ", hoogstewaarde)
 
-#plt.plot(iteraties, hoogstewaardes)
-#plt.title('Kaartwaarde', fontsize=20)
-#plt.xlabel('Iteraties', fontsize=16)
-#plt.ylabel('Waarde in €', fontsize=16)
-#plt.show()
+    #plt.plot(iteraties, hoogstewaardes)
+    #plt.title('Kaartwaarde', fontsize=20)
+    #plt.xlabel('Iteraties', fontsize=16)
+    #plt.ylabel('Waarde in €', fontsize=16)
+    #plt.show()
+
+randomSampling()
 
 #visualiseren
 master = Tk()

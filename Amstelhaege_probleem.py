@@ -95,8 +95,23 @@ def tekenWoningen(woningen):
         map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
-#HEURISTIEKEN
+def berekenVrijstandWoning(woning):
+    shortest_euclidean_distance = 241 * vergrotingHuizen
+    for j in range (int(maxHuizen - 1)):
+        if j != woning:
+            if vrijstandTussen(woningen[woning], woningen[j]) < shortest_euclidean_distance:
+                shortest_euclidean_distance = vrijstandTussen(woningen[woning], woningen[j])
+    return shortest_euclidean_distance
 
+def berekenKaartWaarde():
+    for woning in woningen:
+        index = int(woningen.index(woning))
+        shortest_euclidean_distance = 241 * vergrotingHuizen
+        berekenVrijstandWoning(index)
+        global waardeKaart
+        waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
+
+#HEURISTIEKEN
 
 def conduct():
     for i in range(int(Woning.Water.aantalWatereenheden)):
@@ -107,19 +122,7 @@ def conduct():
         plaatsWoning(Woning.Bungalo)
     for l in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
         plaatsWoning(Woning.Maison)
-
-    for woning in woningen:
-        index = int(woningen.index(woning))
-        shortest_euclidean_distance = 241 * vergrotingHuizen
-        for j in range (int(maxHuizen - 1)):
-            if j != index:
-                if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
-                    shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
-        #print(woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging))
-        global waardeKaart
-        waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
-
-    #print(waardeKaart)
+    berekenKaartWaarde()
 
 def randomSampling(n):
     hoogstewaardes = []
@@ -149,14 +152,21 @@ def randomSampling(n):
     #plt.show()
 
 
-def hillClimber():
-    usewoningen = []
-    usewoningen = randomSampling(1000)
-    usewoningen[randint(0, maxHuizen)]
+def hillClimber(n):
+    usewoningen = randomSampling(1)
+#    for i in range (n):
+#        wijzigWoning = usewoningen[randint(0, maxHuizen)]
+#        huidigeVrijstand = berekenVrijstandWoning(wijzigWoning)
+#        while:
+#            wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + randint(1, 5)
+#            nieuweVrijstand = berekenVrijstandWoning(wijzigWoning)
+
+
+
 
 
 #UITVOEREN
-hillClimber()
+randomSampling(1)
 
 #visualiseren
 master = Tk()

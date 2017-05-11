@@ -29,8 +29,8 @@ def vindCoordinaten(typeWoning):
     nieuwCoordinaat = []
     while not coordinatenValid:
         coordinatenValid = True
-        randomX = randint(typeWoning.vrijeruimte, int(width - breedte))
-        randomY = randint(typeWoning.vrijeruimte, int(height - diepte))
+        randomX = randint(typeWoning.vrijeruimte, int(width - breedte - typeWoning.vrijeruimte))
+        randomY = randint(typeWoning.vrijeruimte, int(height - diepte - typeWoning.vrijeruimte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
             if randomX >= (woning.linksBovenX - breedte - typeWoning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - typeWoning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + typeWoning.vrijeruimte):
@@ -121,11 +121,11 @@ def conduct():
 
     #print(waardeKaart)
 
-def randomSampling():
+def randomSampling(n):
     hoogstewaardes = []
     iteraties = []
 
-    for i in range(1000):
+    for i in range(n):
         conduct()
         global waardeKaart
         global hoogstewaarde
@@ -140,6 +140,7 @@ def randomSampling():
         woningen = []
 
     print("De waarde van de beste kaart is ", hoogstewaarde)
+    return besteWoningen
 
     #plt.plot(iteraties, hoogstewaardes)
     #plt.title('Kaartwaarde', fontsize=20)
@@ -147,7 +148,15 @@ def randomSampling():
     #plt.ylabel('Waarde in €', fontsize=16)
     #plt.show()
 
-randomSampling()
+
+def hillClimber():
+    usewoningen = []
+    usewoningen = randomSampling(1000)
+    usewoningen[randint(0, maxHuizen)]
+
+
+#UITVOEREN
+hillClimber()
 
 #visualiseren
 master = Tk()

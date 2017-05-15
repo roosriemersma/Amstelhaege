@@ -15,11 +15,13 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 20  #random.choice(hoeveelHuizen)
+maxHuizen = 60  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 waardeKaart = 0
 hoogstewaarde = 0
+hoogstewaardes = []
+iteraties = []
 
 
 def vindCoordinaten(typeWoning):
@@ -33,7 +35,7 @@ def vindCoordinaten(typeWoning):
         randomY = randint(typeWoning.vrijeruimte, int(height - diepte - typeWoning.vrijeruimte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
-            if randomX >= (woning.linksBovenX - breedte - typeWoning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - typeWoning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + typeWoning.vrijeruimte):
+            if randomX >= (woning.linksBovenX - breedte - woning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + woning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - woning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + woning.vrijeruimte):
                 coordinatenValid = False
     return nieuwCoordinaat
 
@@ -102,7 +104,7 @@ def berekenVrijstandWoning(woning):
             if woning is Woning.Single or Woning.Bungalo or Woning.Maison and woningen[j] is Woning.Single or Woning.Bungalo or Woning.Maison:
                 if vrijstandTussen(woningen[woning], woningen[j]) < shortest_euclidean_distance:
                     shortest_euclidean_distance = vrijstandTussen(woningen[woning], woningen[j])
-    print(shortest_euclidean_distance)
+    #print(shortest_euclidean_distance)
     return shortest_euclidean_distance
 
 def berekenKaartWaarde():
@@ -117,19 +119,18 @@ def berekenKaartWaarde():
 def conduct():
     for i in range(int(Woning.Water.aantalWatereenheden)):
         plaatsWoning(Woning.Water)
-    for j in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Single)
+    for j in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Maison)
     for k in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
         plaatsWoning(Woning.Bungalo)
-    for l in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Maison)
+    for l in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Single)
     berekenKaartWaarde()
 
 def randomSampling(n):
-    hoogstewaardes = []
-    iteraties = []
 
     for i in range(n):
+        print(i)
         conduct()
         global waardeKaart
         global hoogstewaarde
@@ -145,12 +146,6 @@ def randomSampling(n):
 
     print("De waarde van de beste kaart is ", hoogstewaarde)
     return besteWoningen
-
-    #plt.plot(iteraties, hoogstewaardes)
-    #plt.title('Kaartwaarde', fontsize=20)
-    #plt.xlabel('Iteraties', fontsize=16)
-    #plt.ylabel('Waarde in €', fontsize=16)
-    #plt.show()
 
 
 def hillClimber(n):
@@ -176,7 +171,13 @@ def hillClimber(n):
 
 
 #UITVOEREN
-randomSampling(2)
+randomSampling(100)
+
+#plt.plot(iteraties, hoogstewaardes)
+#plt.title('Kaartwaarde', fontsize=20)
+#plt.xlabel('Iteraties', fontsize=16)
+#plt.ylabel('Waarde in €', fontsize=16)
+#plt.show()
 
 #visualiseren
 master = Tk()

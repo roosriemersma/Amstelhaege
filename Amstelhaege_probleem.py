@@ -157,7 +157,7 @@ map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingH
 map.pack()
 
 tekenWoningen(woningen)
-waardeKaartBerekenen(woningen)
+#waardeKaartBerekenen(woningen)
 tekenWoningen(besteWoningen)
 
 mainloop()

@@ -97,14 +97,13 @@ class Water(Woning):
         breedte = random.randint(19, 76)
         diepte = 1440 / breedte
 
-
     waarde = 0
     waardeStijging = 0
     aandeelHuizen = 0
     kleur = "blue"
     vrijeruimte = 0
 
-    def _init_(self, x, y):
+    def __init__(self, x, y):
         self.linksBovenX = x
         self.linksBovenY = y
 

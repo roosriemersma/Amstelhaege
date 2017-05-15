@@ -14,11 +14,13 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 20  #random.choice(hoeveelHuizen)
+maxHuizen = 60  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 waardeKaart = 0
 hoogstewaarde = 0
+hoogstewaardes = []
+iteraties = []
 
 
 def vindCoordinaten(typeWoning):
@@ -28,11 +30,11 @@ def vindCoordinaten(typeWoning):
     nieuwCoordinaat = []
     while not coordinatenValid:
         coordinatenValid = True
-        randomX = randint(typeWoning.vrijeruimte, int(width - breedte))
-        randomY = randint(typeWoning.vrijeruimte, int(height - diepte))
+        randomX = randint(typeWoning.vrijeruimte, int(width - breedte - typeWoning.vrijeruimte))
+        randomY = randint(typeWoning.vrijeruimte, int(height - diepte - typeWoning.vrijeruimte))
         nieuwCoordinaat = [randomX, randomY]
         for woning in woningen:
-            if randomX >= (woning.linksBovenX - breedte - typeWoning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + typeWoning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - typeWoning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + typeWoning.vrijeruimte):
+            if randomX >= (woning.linksBovenX - breedte - woning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + woning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - woning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + woning.vrijeruimte):
                 coordinatenValid = False
     return nieuwCoordinaat
 
@@ -94,37 +96,40 @@ def tekenWoningen(woningen):
         map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
-#HEURISTIEKEN
+def berekenVrijstandWoning(woning):
+    shortest_euclidean_distance = 241 * vergrotingHuizen
+    for j in range (int(maxHuizen - 1)):
+        if j != woning:
+            if woning is Woning.Single or Woning.Bungalo or Woning.Maison and woningen[j] is Woning.Single or Woning.Bungalo or Woning.Maison:
+                if vrijstandTussen(woningen[woning], woningen[j]) < shortest_euclidean_distance:
+                    shortest_euclidean_distance = vrijstandTussen(woningen[woning], woningen[j])
+    #print(shortest_euclidean_distance)
+    return shortest_euclidean_distance
 
+def berekenKaartWaarde():
+    for woning in woningen:
+        index = int(woningen.index(woning))
+        shortest_euclidean_distance = berekenVrijstandWoning(index)
+        global waardeKaart
+        waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
+
+#HEURISTIEKEN
 
 def conduct():
     for i in range(int(Woning.Water.aantalWatereenheden)):
         plaatsWoning(Woning.Water)
-    for j in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Single)
+    for j in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Maison)
     for k in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
         plaatsWoning(Woning.Bungalo)
-    for l in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Maison)
+    for l in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Single)
+    berekenKaartWaarde()
 
-    for woning in woningen:
-        index = int(woningen.index(woning))
-        shortest_euclidean_distance = 241 * vergrotingHuizen
-        for j in range (int(maxHuizen - 1)):
-            if j != index:
-                if vrijstandTussen(woningen[index], woningen[j]) < shortest_euclidean_distance:
-                    shortest_euclidean_distance = vrijstandTussen(woningen[index], woningen[j])
-        #print(woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging))
-        global waardeKaart
-        waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
+def randomSampling(n):
 
-    #print(waardeKaart)
-
-def randomSampling():
-    hoogstewaardes = []
-    iteraties = []
-
-    for i in range(1000):
+    for i in range(n):
+        print(i)
         conduct()
         global waardeKaart
         global hoogstewaarde
@@ -139,14 +144,39 @@ def randomSampling():
         woningen = []
 
     print("De waarde van de beste kaart is ", hoogstewaarde)
+    return besteWoningen
 
-    #plt.plot(iteraties, hoogstewaardes)
-    #plt.title('Kaartwaarde', fontsize=20)
-    #plt.xlabel('Iteraties', fontsize=16)
-    #plt.ylabel('Waarde in €', fontsize=16)
-    #plt.show()
 
-randomSampling()
+def hillClimber(n):
+    usewoningen = randomSampling(1)
+#    for i in range (n):
+#            wijzigWoningNummer = randint(0, maxHuizen)
+#            wijzigWoning = usewoningen[wijzigWoningNummer]
+#            huidigeVrijstand = berekenVrijstandWoning(wijzigWoningNummer, usewoningen)
+#            verschuiving = randint(1, 3)
+#            gewijzigdewoning = wijzigWoning
+#            gewijzigdewoning.linksBovenX = gewijzigdewoning.linksBovenX + verschuiving
+#            usewoningen.append(gewijzigdewoning)
+#            nieuweVrijstand = berekenVrijstandWoning((len(usewoningen)-1), usewoningen)
+#            for woning in usewoningen:
+#                if (wijzigWoning.linksBovenX >= (woning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) \
+#                and wijzigWoning.linksBovenX <= (woning.linksBovenX + woning.breedte + wijzigWoning.vrijeruimte) \
+#                and wijzigWoning.linksBovenY >= (woning.linksBovenY - wijzigWoning.diepte - wijzigWoning.vrijeruimte) \
+#                and wijzigWoning.linksBovenY <= (woning.linksBovenY + woning.diepte + wijzigWoning.vrijeruimte) \
+#                and nieuweVrijstand > huidigeVrijstand):
+#                   wijzigWoning.linksBovenX = wijzigWoning.linksBovenX - verschuiving
+#                   print("overgeslagen")
+
+
+
+#UITVOEREN
+randomSampling(100)
+
+#plt.plot(iteraties, hoogstewaardes)
+#plt.title('Kaartwaarde', fontsize=20)
+#plt.xlabel('Iteraties', fontsize=16)
+#plt.ylabel('Waarde in €', fontsize=16)
+#plt.show()
 
 #visualiseren
 master = Tk()

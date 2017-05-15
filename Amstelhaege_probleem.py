@@ -4,7 +4,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -171,13 +171,13 @@ def hillClimber(n):
 
 
 #UITVOEREN
-randomSampling(100)
+randomSampling(100000)
 
-#plt.plot(iteraties, hoogstewaardes)
-#plt.title('Kaartwaarde', fontsize=20)
-#plt.xlabel('Iteraties', fontsize=16)
-#plt.ylabel('Waarde in €', fontsize=16)
-#plt.show()
+plt.plot(iteraties, hoogstewaardes)
+plt.title('Kaartwaarde', fontsize=20)
+plt.xlabel('Iteraties', fontsize=16)
+plt.ylabel('Waarde in €', fontsize=16)
+plt.show()
 
 #visualiseren
 master = Tk()

@@ -7,7 +7,7 @@ import Woning
 #import matplotlib.pyplot as plt
 import random
 
-#random.seed(3)
+#random.seed(1)
 
 vergrotingHuizen = 3
 
@@ -54,37 +54,28 @@ def vrijstandTussen(woningA, woningB):
 
         if top and left:
             euclidean_distance = sqrt((woningA.linksBovenX - woningB.rechtsOnderX) ** 2 + (woningA.linksBovenY - woningB.rechtsOnderY) ** 2)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top and left")
             return euclidean_distance
         elif left and bottom:
             euclidean_distance = sqrt((woningA.linksOnderX - woningB.rechtsBovenX) ** 2 + (woningA.linksOnderY - woningB.rechtsBovenY) ** 2)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left and bottom")
             return euclidean_distance
         elif bottom and right:
             euclidean_distance = sqrt((woningA.rechtsOnderX - woningB.linksBovenX) ** 2 + (woningA.rechtsOnderY - woningB.linksBovenY) ** 2)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom and right")
             return euclidean_distance
         elif right and top:
             euclidean_distance = sqrt((woningA.rechtsBovenX - woningB.linksOnderX) ** 2 + (woningA.rechtsBovenY - woningB.linksOnderY) ** 2)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right and top")
             return euclidean_distance
         elif left:
             euclidean_distance = abs(woningA.linksBovenX - woningB.rechtsBovenX)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from left")
             return euclidean_distance
         elif right:
             euclidean_distance = abs(woningA.rechtsBovenX - woningB.linksBovenX)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from right")
             return euclidean_distance
         elif bottom:
             euclidean_distance = abs(woningA.linksOnderY - woningB.linksBovenY)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from bottom")
             return euclidean_distance
         elif top:
             euclidean_distance = abs(woningA.linksBovenY - woningB.linksOnderY)
-            #print("euclidean distance between", woningen.index(woningA), "and", woningen.index(woningB), "=", euclidean_distance, "\n", "distance is measured from top")
             return euclidean_distance
-        #print(woningA.linksBovenX, woningA.linksBovenY, woningB.linksBovenX, woningB.linksBovenY)
 
 def plaatsWoning(typeWoning):
     nieuwCoordinaat = vindCoordinaten(typeWoning)
@@ -98,7 +89,9 @@ def plaatsWoning(typeWoning):
 def tekenWoningen(woningen):
     for woning in woningen:
         index = woningen.index(woning)
-        map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, (woning.linksBovenX + woning.breedte) * vergrotingHuizen , (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
+        map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen,
+                             (woning.linksBovenX + woning.breedte) * vergrotingHuizen ,
+                             (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
         map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
@@ -128,7 +121,11 @@ def mutateMap():
     wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + verschuivingX
     wijzigWoning.linksBovenY = wijzigWoning.linksBovenY + verschuivingY
     woningen.remove(wijzigWoning)
-    while not (coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte) or (wijzigWoning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) < width or 0 > (wijzigWoning.linksBovenX - wijzigWoning.vrijeruimte) or 0 > (wijzigWoning.linksBovenY - wijzigWoning.diepte-wijzigWoning.vrijeruimte) < height) or 0 > (wijzigWoning.linksBovenY - wijzigWoning.vrijeruimte):
+    while not (coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte)
+               or (wijzigWoning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) < width
+               or 0 > (wijzigWoning.linksBovenX - wijzigWoning.vrijeruimte)
+               or 0 > (wijzigWoning.linksBovenY - wijzigWoning.diepte-wijzigWoning.vrijeruimte) < height) \
+            or 0 > (wijzigWoning.linksBovenY - wijzigWoning.vrijeruimte):
         verschuivingX = randint(-3, 3)
         verschuivingY = randint(-3, 3)
         wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + verschuivingX
@@ -185,7 +182,7 @@ def hillClimber(n):
     return woningen
 
 #UITVOEREN
-randomSampling(10000)
+hillClimber(10000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #plt.plot(iteraties, hoogstewaardes)

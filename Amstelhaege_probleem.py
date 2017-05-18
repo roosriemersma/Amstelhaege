@@ -185,7 +185,7 @@ def hillClimber(n):
     return woningen
 
 #UITVOEREN
-hillClimber(10000)
+randomSampling(10000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #plt.plot(iteraties, hoogstewaardes)

@@ -1,3 +1,4 @@
+
 import random
 from math import sqrt
 from random import randint
@@ -22,20 +23,25 @@ hoogstewaarde = 0
 hoogstewaardes = []
 iteraties = []
 
+def coordinatenValid(randomX, randomY, breedte, diepte):
+    coordinatenValid = True
+    for woning in woningen:
+        if randomX >= (woning.linksBovenX - breedte - woning.vrijeruimte) \
+        and randomX <= (woning.linksBovenX + woning.breedte + woning.vrijeruimte) \
+        and randomY >= (woning.linksBovenY - diepte - woning.vrijeruimte) \
+        and randomY <= (woning.linksBovenY + woning.diepte + woning.vrijeruimte):
+            coordinatenValid = False
+    return coordinatenValid
 
 def vindCoordinaten(typeWoning):
     breedte = typeWoning.breedte
     diepte = typeWoning.diepte
-    coordinatenValid = False
-    nieuwCoordinaat = []
-    while not coordinatenValid:
-        coordinatenValid = True
+    randomX = randint(typeWoning.vrijeruimte, int(width - breedte - typeWoning.vrijeruimte))
+    randomY = randint(typeWoning.vrijeruimte, int(height - diepte - typeWoning.vrijeruimte))
+    while not coordinatenValid(randomX, randomY, typeWoning.breedte, typeWoning.diepte):
         randomX = randint(typeWoning.vrijeruimte, int(width - breedte - typeWoning.vrijeruimte))
         randomY = randint(typeWoning.vrijeruimte, int(height - diepte - typeWoning.vrijeruimte))
-        nieuwCoordinaat = [randomX, randomY]
-        for woning in woningen:
-            if randomX >= (woning.linksBovenX - breedte - woning.vrijeruimte) and randomX <= (woning.linksBovenX + woning.breedte + woning.vrijeruimte) and randomY >= (woning.linksBovenY - diepte - woning.vrijeruimte) and randomY <= (woning.linksBovenY + woning.diepte + woning.vrijeruimte):
-                coordinatenValid = False
+    nieuwCoordinaat = [randomX, randomY]
     return nieuwCoordinaat
 
 
@@ -96,7 +102,7 @@ def tekenWoningen(woningen):
         map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
-def berekenVrijstandWoning(woning):
+def berekenVrijstandWoning(woningen, woning):
     shortest_euclidean_distance = 241 * vergrotingHuizen
     for j in range (int(maxHuizen - 1)):
         if j != woning:
@@ -106,14 +112,29 @@ def berekenVrijstandWoning(woning):
     #print(shortest_euclidean_distance)
     return shortest_euclidean_distance
 
-def berekenKaartWaarde():
+def berekenKaartWaarde(woningen):
     for woning in woningen:
         index = int(woningen.index(woning))
-        shortest_euclidean_distance = berekenVrijstandWoning(index)
+        shortest_euclidean_distance = berekenVrijstandWoning(woningen, index)
         global waardeKaart
         waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
+    return waardeKaart
 
-#HEURISTIEKEN
+def mutateMap():
+    wijzigWoningNummer = randint(0, maxHuizen)
+    wijzigWoning = woningen[wijzigWoningNummer]
+    verschuivingX = randint(-3, 3)
+    verschuivingY = randint(-3, 3)
+    wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + verschuivingX
+    wijzigWoning.linksBovenY = wijzigWoning.linksBovenY + verschuivingY
+    woningen.remove(wijzigWoning)
+    while not (coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte) or (wijzigWoning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) < width or 0 > (wijzigWoning.linksBovenX - wijzigWoning.vrijeruimte) or 0 > (wijzigWoning.linksBovenY - wijzigWoning.diepte-wijzigWoning.vrijeruimte) < height) or 0 > (wijzigWoning.linksBovenY - wijzigWoning.vrijeruimte):
+        verschuivingX = randint(-3, 3)
+        verschuivingY = randint(-3, 3)
+        wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + verschuivingX
+        wijzigWoning.linksBovenY = wijzigWoning.linksBovenY + verschuivingY
+    woningen.append(wijzigWoning)
+    return woningen
 
 def conduct():
     for i in range(int(Woning.Water.aantalWatereenheden)):
@@ -124,12 +145,13 @@ def conduct():
         plaatsWoning(Woning.Bungalo)
     for l in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
         plaatsWoning(Woning.Single)
-    berekenKaartWaarde()
+    berekenKaartWaarde(woningen)
+
+#HEURISTIEKEN
 
 def randomSampling(n):
 
     for i in range(n):
-        print(i)
         conduct()
         global waardeKaart
         global hoogstewaarde
@@ -143,34 +165,28 @@ def randomSampling(n):
         waardeKaart = 0
         woningen = []
 
-    print("De waarde van de beste kaart is ", hoogstewaarde)
     return besteWoningen
 
 
 def hillClimber(n):
-    usewoningen = randomSampling(1)
-#    for i in range (n):
-#            wijzigWoningNummer = randint(0, maxHuizen)
-#            wijzigWoning = usewoningen[wijzigWoningNummer]
-#            huidigeVrijstand = berekenVrijstandWoning(wijzigWoningNummer, usewoningen)
-#            verschuiving = randint(1, 3)
-#            gewijzigdewoning = wijzigWoning
-#            gewijzigdewoning.linksBovenX = gewijzigdewoning.linksBovenX + verschuiving
-#            usewoningen.append(gewijzigdewoning)
-#            nieuweVrijstand = berekenVrijstandWoning((len(usewoningen)-1), usewoningen)
-#            for woning in usewoningen:
-#                if (wijzigWoning.linksBovenX >= (woning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) \
-#                and wijzigWoning.linksBovenX <= (woning.linksBovenX + woning.breedte + wijzigWoning.vrijeruimte) \
-#                and wijzigWoning.linksBovenY >= (woning.linksBovenY - wijzigWoning.diepte - wijzigWoning.vrijeruimte) \
-#                and wijzigWoning.linksBovenY <= (woning.linksBovenY + woning.diepte + wijzigWoning.vrijeruimte) \
-#                and nieuweVrijstand > huidigeVrijstand):
-#                   wijzigWoning.linksBovenX = wijzigWoning.linksBovenX - verschuiving
-#                   print("overgeslagen")
-
-
+    conduct()
+    global woningen
+    useWoningenWaarde = berekenKaartWaarde(woningen)
+    for i in range (n):
+        testWoningen = mutateMap()
+        testWoningenWaarde = berekenKaartWaarde(testWoningen)
+        if testWoningenWaarde >= useWoningenWaarde:
+            woningen = testWoningen
+            useWoningenWaarde = testWoningenWaarde
+    global hoogstewaarde
+    global besteWoningen
+    hoogstewaarde = useWoningenWaarde
+    besteWoningen = woningen
+    return woningen
 
 #UITVOEREN
-randomSampling(5000)
+randomSampling(10000)
+print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #plt.plot(iteraties, hoogstewaardes)
 #plt.title('Kaartwaarde', fontsize=20)
@@ -184,9 +200,8 @@ master = Tk()
 map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
 
-
 tekenWoningen(besteWoningen)
-
+print("klaarmettekenen")
 mainloop()
 
 

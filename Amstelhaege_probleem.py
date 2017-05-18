@@ -14,7 +14,7 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 60  #random.choice(hoeveelHuizen)
+maxHuizen = 20  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 waardeKaart = 0
@@ -170,7 +170,7 @@ def hillClimber(n):
 
 
 #UITVOEREN
-randomSampling(100)
+randomSampling(5000)
 
 #plt.plot(iteraties, hoogstewaardes)
 #plt.title('Kaartwaarde', fontsize=20)
@@ -183,6 +183,7 @@ master = Tk()
 
 map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
+
 
 tekenWoningen(besteWoningen)
 

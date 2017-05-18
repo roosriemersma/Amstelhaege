@@ -20,6 +20,8 @@ class Single(Woning):
     kortsteAfstand = 0
 
     def __init__(self, x, y):
+        self.type = "Single"
+
         self.linksBovenX = x
         self.linksBovenY = y
 
@@ -44,6 +46,8 @@ class Bungalo(Woning):
     kortsteAfstand = 0
 
     def __init__(self, x, y):
+        self.type = "Bungalo"
+
         self.linksBovenX = x
         self.linksBovenY = y
 
@@ -67,6 +71,8 @@ class Maison(Woning):
     kortsteAfstand = 0
 
     def __init__(self, x, y):
+        self.type = "Maison"
+
         self.linksBovenX = x
         self.linksBovenY = y
 

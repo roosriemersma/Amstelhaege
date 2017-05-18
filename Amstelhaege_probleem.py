@@ -76,6 +76,7 @@ def vrijstandTussen(woningA, woningB):
             euclidean_distance = abs(woningA.linksBovenY - woningB.linksOnderY)
             return euclidean_distance
 
+
 def plaatsWoning(typeWoning):
     nieuwCoordinaat = vindCoordinaten(typeWoning)
     x = nieuwCoordinaat[0]
@@ -190,12 +191,22 @@ plt.xlabel('Iteraties', fontsize=16)
 plt.ylabel('Waarde in €', fontsize=16)
 plt.show()
 
+randomSampling(100)
+'''
+plt.plot(iteraties, hoogstewaardes)
+plt.title('Kaartwaarde', fontsize=20)
+plt.xlabel('Iteraties', fontsize=16)
+plt.ylabel('Waarde in €', fontsize=16)
+plt.show()
+'''
 #visualiseren
 master = Tk()
 
 map = Canvas(master, width=width * vergrotingHuizen, height=height * vergrotingHuizen)
 map.pack()
 
+tekenWoningen(woningen)
+#waardeKaartBerekenen(woningen)
 tekenWoningen(besteWoningen)
 print("#klaarmettekenen")
 mainloop()

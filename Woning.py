@@ -152,7 +152,7 @@ class Water(Woning):
     elif aantalWatereenheden == 4:
         breedte = random.randint(19, 76)
         diepte = 1440 / breedte
-''''''
+
     waarde = 0
     waardeStijging = 0
     aandeelHuizen = 0

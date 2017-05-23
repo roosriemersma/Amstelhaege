@@ -4,10 +4,10 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import random
 
-#random.seed(1)
+#random.seed(3)
 
 vergrotingHuizen = 3
 
@@ -18,20 +18,19 @@ hoeveelHuizen = [20, 40, 60]
 maxHuizen = 20  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
-waardeKaart = 0
 hoogstewaarde = 0
 hoogstewaardes = []
 iteraties = []
-iteratiesHC2 = []
-hoogstewaardesHC2 = []
+xas = []
+yas = []
 
-def coordinatenValid(randomX, randomY, breedte, diepte):
+def coordinatenValid(x, y, breedte, diepte):
     coordinatenValid = True
     for woning in woningen:
-        if randomX >= (woning.linksBovenX - breedte - woning.vrijeruimte) \
-        and randomX <= (woning.linksBovenX + woning.breedte + woning.vrijeruimte) \
-        and randomY >= (woning.linksBovenY - diepte - woning.vrijeruimte) \
-        and randomY <= (woning.linksBovenY + woning.diepte + woning.vrijeruimte):
+        if x >= (woning.linksBovenX - breedte - woning.vrijeruimte) \
+        and x <= (woning.linksBovenX + woning.breedte + woning.vrijeruimte) \
+        and y >= (woning.linksBovenY - diepte - woning.vrijeruimte) \
+        and y <= (woning.linksBovenY + woning.diepte + woning.vrijeruimte):
             coordinatenValid = False
     return coordinatenValid
 
@@ -98,42 +97,44 @@ def tekenWoningen(woningen):
         map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
-def berekenVrijstandWoning(woningen, woning):
+def berekenVrijstandWoning(woningen, woningIndex):
     shortest_euclidean_distance = 241 * vergrotingHuizen
     for j in range (int(maxHuizen - 1)):
-        if j != woning:
-            if woning is Woning.Single or Woning.Bungalo or Woning.Maison and woningen[j] is Woning.Single or Woning.Bungalo or Woning.Maison:
-                if vrijstandTussen(woningen[woning], woningen[j]) < shortest_euclidean_distance:
-                    shortest_euclidean_distance = vrijstandTussen(woningen[woning], woningen[j])
+        if j != woningIndex:
+            if woningen[woningIndex] is not Woning.Water and woningen[j] is not Woning.Water:
+                if vrijstandTussen(woningen[woningIndex], woningen[j]) < shortest_euclidean_distance:
+                    shortest_euclidean_distance = vrijstandTussen(woningen[woningIndex], woningen[j])
     #print(shortest_euclidean_distance)
     return shortest_euclidean_distance
 
 def berekenKaartWaarde(woningen):
+    waardeKaart = 0
     for woning in woningen:
         index = int(woningen.index(woning))
         shortest_euclidean_distance = berekenVrijstandWoning(woningen, index)
-        global waardeKaart
         waardeKaart = waardeKaart + woning.waarde + woning.waarde * ((shortest_euclidean_distance - woning.vrijeruimte) * woning.waardeStijging)
     return waardeKaart
 
-def mutateMap():
+def mutateMap(woningen):
+    oudeKaartWaarde = berekenKaartWaarde(woningen)
     wijzigWoningNummer = randint(0, maxHuizen)
     wijzigWoning = woningen[wijzigWoningNummer]
     verschuivingX = randint(-3, 3)
     verschuivingY = randint(-3, 3)
-    wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + verschuivingX
-    wijzigWoning.linksBovenY = wijzigWoning.linksBovenY + verschuivingY
-    woningen.remove(wijzigWoning)
-    while not (coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte)
-               or (wijzigWoning.linksBovenX - wijzigWoning.breedte - wijzigWoning.vrijeruimte) < width
-               or 0 > (wijzigWoning.linksBovenX - wijzigWoning.vrijeruimte)
-               or 0 > (wijzigWoning.linksBovenY - wijzigWoning.diepte-wijzigWoning.vrijeruimte) < height) \
-            or 0 > (wijzigWoning.linksBovenY - wijzigWoning.vrijeruimte):
-        verschuivingX = randint(-3, 3)
-        verschuivingY = randint(-3, 3)
-        wijzigWoning.linksBovenX = wijzigWoning.linksBovenX + verschuivingX
-        wijzigWoning.linksBovenY = wijzigWoning.linksBovenY + verschuivingY
-    woningen.append(wijzigWoning)
+    wijzigWoning.linksBovenX += verschuivingX
+    wijzigWoning.linksBovenY += verschuivingY
+    if oudeKaartWaarde < berekenKaartWaarde(woningen):
+        del woningen[wijzigWoningNummer]
+        if wijzigWoning.linksBovenX + wijzigWoning.breedte > width or \
+        0 > wijzigWoning.linksBovenX or \
+        (wijzigWoning.linksBovenY + wijzigWoning.diepte) > height \
+        or 0 > wijzigWoning.linksBovenY or not coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte):
+            wijzigWoning.linksBovenX -= verschuivingX
+            wijzigWoning.linksBovenY -= verschuivingY
+        woningen.append(wijzigWoning)
+    else:
+        wijzigWoning.linksBovenX -= verschuivingX
+        wijzigWoning.linksBovenY -= verschuivingY
     return woningen
 
 def conduct():
@@ -186,8 +187,8 @@ def randomSampling(n):
         if waardeKaart > hoogstewaarde:
             hoogstewaarde = waardeKaart
             besteWoningen = woningen
-        hoogstewaardes.append(hoogstewaarde)
-        iteraties.append(i)
+        yas.append(hoogstewaarde)
+        xas.append(i)
         waardeKaart = 0
         woningen = []
 
@@ -197,18 +198,18 @@ def randomSampling(n):
 def hillClimber(n):
     conduct()
     global woningen
-    useWoningenWaarde = berekenKaartWaarde(woningen)
     for i in range (n):
-        testWoningen = mutateMap()
-        testWoningenWaarde = berekenKaartWaarde(testWoningen)
-        if testWoningenWaarde >= useWoningenWaarde:
-            woningen = testWoningen
-            useWoningenWaarde = testWoningenWaarde
+        mutateMap(woningen)
+        print(berekenKaartWaarde(woningen))
+        yas.append(berekenKaartWaarde(woningen))
+        xas.append(i)
     global hoogstewaarde
     global besteWoningen
-    hoogstewaarde = useWoningenWaarde
     besteWoningen = woningen
-    return woningen
+    hoogstewaarde = berekenKaartWaarde(woningen)
+    for woning in woningen:
+        print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
+    return besteWoningen
 
 
 def hillClimber2(n):
@@ -228,14 +229,17 @@ def hillClimber2(n):
     return woningen
 
 #UITVOEREN
+hillClimber(1000)
+print("De waarde van de beste kaart is ", hoogstewaarde)
+
 #randomSampling(100)
 #print("De waarde van de beste kaart is ", hoogstewaarde)
 
-#plt.plot(iteraties, hoogstewaardes)
-#plt.title('Kaartwaarde', fontsize=20)
-#plt.xlabel('Iteraties', fontsize=16)
-#plt.ylabel('Waarde in €', fontsize=16)
-#plt.show()
+plt.plot(xas, yas)
+plt.title('Kaartwaarde', fontsize=20)
+plt.xlabel('Iteraties', fontsize=16)
+plt.ylabel('Waarde in €', fontsize=16)
+plt.show()
 
 
 hillClimber2(1000)
@@ -251,7 +255,7 @@ map.pack()
 tekenWoningen(woningen)
 #waardeKaartBerekenen(woningen)
 tekenWoningen(besteWoningen)
-print("klaarmettekenen")
+print("#klaarmettekenen")
 mainloop()
 
 #show()

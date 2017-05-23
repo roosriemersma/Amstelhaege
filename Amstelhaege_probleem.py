@@ -4,7 +4,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -138,7 +138,7 @@ def mutateMap(woningen):
     return woningen
 
 
-def houseSwap(woningen):
+def houseSwap():
     water = int(Woning.Water.aantalWatereenheden)
     indexhuis1 = randint(0 + water, maxHuizen + water - 1) # (maxHuizen + Woning.Water.aantalWatereenheden))
     while True:
@@ -217,31 +217,33 @@ def hillClimber(n):
 def hillClimber2(n):
     conduct()
     global woningen
+    useWoningenWaarde = berekenKaartWaarde(woningen)
+    print("Beginwaarde =", useWoningenWaarde)
     for i in range(n):
-        houseSwap(woningen)
-        print(berekenKaartWaarde(woningen))
-        yas.append(berekenKaartWaarde(woningen))
-        xas.append(i)
+        testWoningen = houseSwap()
+        testWoningenWaarde = berekenKaartWaarde(testWoningen)
+        if testWoningenWaarde >= useWoningenWaarde:
+            woningen = testWoningen
+            useWoningenWaarde = testWoningenWaarde
     global hoogstewaarde
     global besteWoningen
+    hoogstewaarde = useWoningenWaarde
+    print("Hoogstewaarde = ", hoogstewaarde)
     besteWoningen = woningen
-    hoogstewaarde = berekenKaartWaarde(woningen)
-    for woning in woningen:
-        print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
-    return besteWoningen
+    return woningen
 
 #UITVOEREN
-hillClimber2(1000)
+hillClimber2(100)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #randomSampling(100)
 #print("De waarde van de beste kaart is ", hoogstewaarde)
 
-plt.plot(xas, yas)
-plt.title('Kaartwaarde', fontsize=20)
-plt.xlabel('Iteraties', fontsize=16)
-plt.ylabel('Waarde in €', fontsize=16)
-plt.show()
+#plt.plot(xas, yas)
+#plt.title('Kaartwaarde', fontsize=20)
+#plt.xlabel('Iteraties', fontsize=16)
+#plt.ylabel('Waarde in €', fontsize=16)
+#plt.show()
 
 
 #hillClimber2(1000)

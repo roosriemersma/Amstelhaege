@@ -22,6 +22,8 @@ waardeKaart = 0
 hoogstewaarde = 0
 hoogstewaardes = []
 iteraties = []
+iteratiesHC2 = []
+hoogstewaardesHC2 = []
 
 def coordinatenValid(randomX, randomY, breedte, diepte):
     coordinatenValid = True
@@ -145,6 +147,32 @@ def conduct():
         plaatsWoning(Woning.Single)
     berekenKaartWaarde(woningen)
 
+def houseSwap():
+    water = int(Woning.Water.aantalWatereenheden)
+    indexhuis1 = randint(0 + water, maxHuizen + water - 1) # (maxHuizen + Woning.Water.aantalWatereenheden))
+    while True:
+        indexhuis2 = randint(0 + water, maxHuizen + water - 1)
+        if indexhuis1 != indexhuis2: break
+
+    huis1 = woningen[indexhuis1]
+    huis2 = woningen[indexhuis2]
+    huidigeX1 = huis1.linksBovenX
+    huidigeY1 = huis1.linksBovenY
+    huidigeX2 = huis2.linksBovenX
+    huidigeY2 = huis2.linksBovenY
+
+    nieuweX1 = huidigeX2
+    nieuweY1 = huidigeY2
+    nieuweX2 = huidigeX1
+    nieuweY2 = huidigeY1
+
+    if (coordinatenValid(nieuweX1,nieuweY1,huis1.breedte,huis1.diepte) and coordinatenValid(nieuweX2,nieuweY2,huis2.breedte,huis2.diepte)):
+        huis1.linksBovenX = nieuweX1
+        huis1.linksBovenY = nieuweY1
+        huis2.linksBovenX = nieuweX2
+        huis2.linksBovenY = nieuweY2
+    return woningen
+
 #HEURISTIEKEN
 
 def randomSampling(n):
@@ -182,9 +210,26 @@ def hillClimber(n):
     besteWoningen = woningen
     return woningen
 
+
+def hillClimber2(n):
+    conduct()
+    global woningen
+    useWoningenWaarde = berekenKaartWaarde(woningen)
+    for i in range(n):
+        testWoningen = houseSwap()
+        testWoningenWaarde = berekenKaartWaarde(testWoningen)
+        if testWoningenWaarde >= useWoningenWaarde:
+            woningen = testWoningen
+            useWoningenWaarde = testWoningenWaarde
+    global hoogstewaarde
+    global besteWoningen
+    hoogstewaarde = useWoningenWaarde
+    besteWoningen = woningen
+    return woningen
+
 #UITVOEREN
-hillClimber(10000)
-print("De waarde van de beste kaart is ", hoogstewaarde)
+#randomSampling(100)
+#print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #plt.plot(iteraties, hoogstewaardes)
 #plt.title('Kaartwaarde', fontsize=20)
@@ -192,14 +237,11 @@ print("De waarde van de beste kaart is ", hoogstewaarde)
 #plt.ylabel('Waarde in €', fontsize=16)
 #plt.show()
 
-randomSampling(100)
-'''
-plt.plot(iteraties, hoogstewaardes)
-plt.title('Kaartwaarde', fontsize=20)
-plt.xlabel('Iteraties', fontsize=16)
-plt.ylabel('Waarde in €', fontsize=16)
-plt.show()
-'''
+
+hillClimber2(1000)
+print("De waarde van de beste kaart is ", hoogstewaarde)
+
+
 #visualiseren
 master = Tk()
 
@@ -211,7 +253,5 @@ tekenWoningen(woningen)
 tekenWoningen(besteWoningen)
 print("klaarmettekenen")
 mainloop()
-
-
 
 #show()

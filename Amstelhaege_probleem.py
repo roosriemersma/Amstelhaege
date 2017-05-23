@@ -137,18 +137,8 @@ def mutateMap(woningen):
         wijzigWoning.linksBovenY -= verschuivingY
     return woningen
 
-def conduct():
-    for i in range(int(Woning.Water.aantalWatereenheden)):
-        plaatsWoning(Woning.Water)
-    for j in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Maison)
-    for k in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Bungalo)
-    for l in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
-        plaatsWoning(Woning.Single)
-    berekenKaartWaarde(woningen)
 
-def houseSwap():
+def houseSwap(woningen):
     water = int(Woning.Water.aantalWatereenheden)
     indexhuis1 = randint(0 + water, maxHuizen + water - 1) # (maxHuizen + Woning.Water.aantalWatereenheden))
     while True:
@@ -173,6 +163,18 @@ def houseSwap():
         huis2.linksBovenX = nieuweX2
         huis2.linksBovenY = nieuweY2
     return woningen
+
+def conduct():
+    for i in range(int(Woning.Water.aantalWatereenheden)):
+        plaatsWoning(Woning.Water)
+    for j in range(int(Woning.Maison.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Maison)
+    for k in range(int(Woning.Bungalo.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Bungalo)
+    for l in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
+        plaatsWoning(Woning.Single)
+    berekenKaartWaarde(woningen)
+
 
 #HEURISTIEKEN
 
@@ -215,21 +217,21 @@ def hillClimber(n):
 def hillClimber2(n):
     conduct()
     global woningen
-    useWoningenWaarde = berekenKaartWaarde(woningen)
     for i in range(n):
-        testWoningen = houseSwap()
-        testWoningenWaarde = berekenKaartWaarde(testWoningen)
-        if testWoningenWaarde >= useWoningenWaarde:
-            woningen = testWoningen
-            useWoningenWaarde = testWoningenWaarde
+        houseSwap(woningen)
+        print(berekenKaartWaarde(woningen))
+        yas.append(berekenKaartWaarde(woningen))
+        xas.append(i)
     global hoogstewaarde
     global besteWoningen
-    hoogstewaarde = useWoningenWaarde
     besteWoningen = woningen
-    return woningen
+    hoogstewaarde = berekenKaartWaarde(woningen)
+    for woning in woningen:
+        print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
+    return besteWoningen
 
 #UITVOEREN
-hillClimber(1000)
+hillClimber2(1000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 #randomSampling(100)
@@ -242,8 +244,8 @@ plt.ylabel('Waarde in €', fontsize=16)
 plt.show()
 
 
-hillClimber2(1000)
-print("De waarde van de beste kaart is ", hoogstewaarde)
+#hillClimber2(1000)
+#print("De waarde van de beste kaart is ", hoogstewaarde)
 
 
 #visualiseren

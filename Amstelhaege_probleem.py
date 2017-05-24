@@ -4,7 +4,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -233,16 +233,16 @@ def hillClimber2(n):
     return woningen
 
 #UITVOEREN
-hillClimber(10000)
+hillClimber(30000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
-
+'''
 plt.plot(xas, yas)
 plt.title('Kaartwaarde', fontsize=20)
 plt.xlabel('Iteraties', fontsize=16)
 plt.ylabel('Waarde in €', fontsize=16)
 plt.show()
-
+'''
 #visualiseren
 master = Tk()
 

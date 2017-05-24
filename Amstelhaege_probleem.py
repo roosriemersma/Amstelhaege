@@ -182,7 +182,7 @@ def hillClimber(n):
     return besteWoningen
 
 #UITVOEREN
-hillClimber(1000)
+hillClimber(10000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 plt.plot(xas, yas)

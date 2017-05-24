@@ -4,7 +4,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -15,7 +15,7 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 20  #random.choice(hoeveelHuizen)
+maxHuizen = 60  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 hoogstewaarde = 0
@@ -123,16 +123,18 @@ def mutateMap(woningen):
     verschuivingY = randint(-3, 3)
     wijzigWoning.linksBovenX += verschuivingX
     wijzigWoning.linksBovenY += verschuivingY
-    if oudeKaartWaarde < berekenKaartWaarde(woningen):
-        del woningen[wijzigWoningNummer]
-        if wijzigWoning.linksBovenX + wijzigWoning.breedte > width or \
+    del woningen[wijzigWoningNummer]
+    if (wijzigWoning.linksBovenX + wijzigWoning.breedte) > width or \
         0 > wijzigWoning.linksBovenX or \
         (wijzigWoning.linksBovenY + wijzigWoning.diepte) > height \
         or 0 > wijzigWoning.linksBovenY or not coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte):
             wijzigWoning.linksBovenX -= verschuivingX
             wijzigWoning.linksBovenY -= verschuivingY
-        woningen.append(wijzigWoning)
+            cancelled = True
     else:
+        cancelled = False
+    woningen.insert(wijzigWoningNummer, wijzigWoning)
+    if oudeKaartWaarde > berekenKaartWaarde(woningen) and not cancelled:
         wijzigWoning.linksBovenX -= verschuivingX
         wijzigWoning.linksBovenY -= verschuivingY
     return woningen
@@ -201,7 +203,6 @@ def hillClimber(n):
     global woningen
     for i in range (n):
         mutateMap(woningen)
-        print(berekenKaartWaarde(woningen))
         yas.append(berekenKaartWaarde(woningen))
         xas.append(i)
     global hoogstewaarde
@@ -232,8 +233,9 @@ def hillClimber2(n):
     return woningen
 
 #UITVOEREN
-hillClimber2(100)
+hillClimber(10000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
+
 
 plt.plot(xas, yas)
 plt.title('Kaartwaarde', fontsize=20)
@@ -241,14 +243,6 @@ plt.xlabel('Iteraties', fontsize=16)
 plt.ylabel('Waarde in €', fontsize=16)
 plt.show()
 
-randomSampling(100)
-'''
-plt.plot(iteraties, hoogstewaardes)
-plt.title('Kaartwaarde', fontsize=20)
-plt.xlabel('Iteraties', fontsize=16)
-plt.ylabel('Waarde in €', fontsize=16)
-plt.show()
-'''
 #visualiseren
 master = Tk()
 

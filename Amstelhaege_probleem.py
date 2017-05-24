@@ -4,7 +4,7 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -19,6 +19,8 @@ maxHuizen = 20  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 hoogstewaarde = 0
+hoogstewaardes = []
+iteraties = []
 xas = []
 yas = []
 
@@ -89,7 +91,9 @@ def plaatsWoning(typeWoning):
 def tekenWoningen(woningen):
     for woning in woningen:
         index = woningen.index(woning)
-        map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen, (woning.linksBovenX + woning.breedte) * vergrotingHuizen , (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
+        map.create_rectangle(woning.linksBovenX * vergrotingHuizen, woning.linksBovenY * vergrotingHuizen,
+                             (woning.linksBovenX + woning.breedte) * vergrotingHuizen ,
+                             (woning.linksBovenY + woning.diepte) * vergrotingHuizen , fill = woning.kleur)
         map.create_text((woning.linksBovenX+4) * vergrotingHuizen, (woning.linksBovenY+3.5) * vergrotingHuizen, text= index, font="Times 18 italic")
 
 
@@ -131,6 +135,33 @@ def mutateMap(woningen):
     else:
         wijzigWoning.linksBovenX -= verschuivingX
         wijzigWoning.linksBovenY -= verschuivingY
+    return woningen
+
+
+def houseSwap():
+    water = int(Woning.Water.aantalWatereenheden)
+    indexhuis1 = randint(0 + water, maxHuizen + water - 1) # (maxHuizen + Woning.Water.aantalWatereenheden))
+    while True:
+        indexhuis2 = randint(0 + water, maxHuizen + water - 1)
+        if indexhuis1 != indexhuis2: break
+
+    huis1 = woningen[indexhuis1]
+    huis2 = woningen[indexhuis2]
+    huidigeX1 = huis1.linksBovenX
+    huidigeY1 = huis1.linksBovenY
+    huidigeX2 = huis2.linksBovenX
+    huidigeY2 = huis2.linksBovenY
+
+    nieuweX1 = huidigeX2
+    nieuweY1 = huidigeY2
+    nieuweX2 = huidigeX1
+    nieuweY2 = huidigeY1
+
+    if (coordinatenValid(nieuweX1,nieuweY1,huis1.breedte,huis1.diepte) and coordinatenValid(nieuweX2,nieuweY2,huis2.breedte,huis2.diepte)):
+        huis1.linksBovenX = nieuweX1
+        huis1.linksBovenY = nieuweY1
+        huis2.linksBovenX = nieuweX2
+        huis2.linksBovenY = nieuweY2
     return woningen
 
 def conduct():
@@ -181,8 +212,27 @@ def hillClimber(n):
         print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
     return besteWoningen
 
+
+def hillClimber2(n):
+    conduct()
+    global woningen
+    useWoningenWaarde = berekenKaartWaarde(woningen)
+    print("Beginwaarde =", useWoningenWaarde)
+    for i in range(n):
+        testWoningen = houseSwap()
+        testWoningenWaarde = berekenKaartWaarde(testWoningen)
+        if testWoningenWaarde >= useWoningenWaarde:
+            woningen = testWoningen
+            useWoningenWaarde = testWoningenWaarde
+    global hoogstewaarde
+    global besteWoningen
+    hoogstewaarde = useWoningenWaarde
+    print("Hoogstewaarde = ", hoogstewaarde)
+    besteWoningen = woningen
+    return woningen
+
 #UITVOEREN
-hillClimber(10000)
+hillClimber2(100)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 plt.plot(xas, yas)

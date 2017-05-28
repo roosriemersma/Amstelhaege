@@ -4,7 +4,8 @@ from math import sqrt
 from random import randint
 from tkinter import *
 import Woning
-#import matplotlib.pyplot as plt
+import math
+import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
@@ -15,7 +16,7 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 60  #random.choice(hoeveelHuizen)
+maxHuizen = 20  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 hoogstewaarde = 0
@@ -23,6 +24,8 @@ hoogstewaardes = []
 iteraties = []
 xas = []
 yas = []
+iss = []
+temp = []
 
 def coordinatenValid(x, y, breedte, diepte):
     coordinatenValid = True
@@ -177,6 +180,17 @@ def conduct():
         plaatsWoning(Woning.Single)
     berekenKaartWaarde(woningen)
 
+def updateTemperature(i, n):
+
+    #temperature = .05 * (i / n) + .95 #linear
+    #temperature = .05 * (i ** 2 / n ** 2) + .95 #exponential
+    #temperature = .05 * (i ** .5 / n ** .5) + .95 #root
+    temperature = .05 * (math.log(i+1) / math.log(n+1)) + .95 #logarithmic
+
+
+    return temperature
+
+
 #HEURISTIEKEN
 
 def randomSampling(n):
@@ -213,6 +227,43 @@ def hillClimber(n):
         print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
     return besteWoningen
 
+def simulatedAnnealer(n):
+    conduct()
+    global woningen
+    for i in range (n):
+        oudeKaartWaarde = berekenKaartWaarde(woningen)
+        wijzigWoningNummer = randint(0, maxHuizen)
+        wijzigWoning = woningen[wijzigWoningNummer]
+        verschuivingX = randint(-3, 3)
+        verschuivingY = randint(-3, 3)
+        wijzigWoning.linksBovenX += verschuivingX
+        wijzigWoning.linksBovenY += verschuivingY
+        del woningen[wijzigWoningNummer]
+        if (wijzigWoning.linksBovenX + wijzigWoning.breedte) > width or \
+            0 > wijzigWoning.linksBovenX or \
+            (wijzigWoning.linksBovenY + wijzigWoning.diepte) > height \
+            or 0 > wijzigWoning.linksBovenY or not coordinatenValid(wijzigWoning.linksBovenX, wijzigWoning.linksBovenY, wijzigWoning.breedte, wijzigWoning.diepte):
+            wijzigWoning.linksBovenX -= verschuivingX
+            wijzigWoning.linksBovenY -= verschuivingY
+            cancelled = True
+        else:
+            cancelled = False
+        woningen.insert(wijzigWoningNummer, wijzigWoning)
+        temperature = updateTemperature(i, n)
+        if temperature*oudeKaartWaarde > berekenKaartWaarde(woningen) and not cancelled:
+            wijzigWoning.linksBovenX -= verschuivingX
+            wijzigWoning.linksBovenY -= verschuivingY
+        temp.append(temperature)
+        yas.append(berekenKaartWaarde(woningen))
+        xas.append(i)
+    global hoogstewaarde
+    global besteWoningen
+    besteWoningen = woningen
+    hoogstewaarde = berekenKaartWaarde(woningen)
+    for woning in woningen:
+        print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
+    return besteWoningen
+
 
 def hillClimber2(n):
     conduct()
@@ -233,16 +284,17 @@ def hillClimber2(n):
     return woningen
 
 #UITVOEREN
-hillClimber(30000)
+simulatedAnnealer(1000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
-'''
+
 plt.plot(xas, yas)
+#plt.plot(xas, temp)
 plt.title('Kaartwaarde', fontsize=20)
 plt.xlabel('Iteraties', fontsize=16)
 plt.ylabel('Waarde in €', fontsize=16)
 plt.show()
-'''
+
 #visualiseren
 master = Tk()
 

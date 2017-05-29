@@ -5,10 +5,13 @@ from random import randint
 from tkinter import *
 import Woning
 import math
-import matplotlib.pyplot as plt
+import time
+#import matplotlib.pyplot as plt
 import random
 
 #random.seed(3)
+
+start_time = time.time()
 
 vergrotingHuizen = 3
 
@@ -16,7 +19,7 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 20  #random.choice(hoeveelHuizen)
+maxHuizen = 60  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 hoogstewaarde = 0
@@ -284,17 +287,17 @@ def hillClimber2(n):
     return woningen
 
 #UITVOEREN
-simulatedAnnealer(1000)
+simulatedAnnealer(10000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
-
+'''
 plt.plot(xas, yas)
 #plt.plot(xas, temp)
 plt.title('Kaartwaarde', fontsize=20)
 plt.xlabel('Iteraties', fontsize=16)
 plt.ylabel('Waarde in €', fontsize=16)
 plt.show()
-
+'''
 #visualiseren
 master = Tk()
 
@@ -305,7 +308,9 @@ tekenWoningen(woningen)
 #waardeKaartBerekenen(woningen)
 tekenWoningen(besteWoningen)
 print("#klaarmettekenen")
+print("--- %s seconds ---" % (time.time() - start_time))
 mainloop()
+main()
 
 
 

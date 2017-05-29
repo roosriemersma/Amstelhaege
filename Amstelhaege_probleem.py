@@ -187,8 +187,8 @@ def updateTemperature(i, n):
 
     #temperature = .05 * (i / n) + .95 #linear
     #temperature = .05 * (i ** 2 / n ** 2) + .95 #exponential
-    #temperature = .05 * (i ** .5 / n ** .5) + .95 #root
-    temperature = .05 * (math.log(i+1) / math.log(n+1)) + .95 #logarithmic
+    temperature = .05 * (i ** .5 / n ** .5) + .95 #root
+    #temperature = .05 * (math.log(i+1) / math.log(n+1)) + .95 #logarithmic
 
 
     return temperature

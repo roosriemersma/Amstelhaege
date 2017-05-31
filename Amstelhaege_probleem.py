@@ -181,15 +181,15 @@ def conduct():
         plaatsWoning(Woning.Bungalo)
     for l in range(int(Woning.Single.aandeelHuizen * maxHuizen)):
         plaatsWoning(Woning.Single)
-    berekenKaartWaarde(woningen)
+    return berekenKaartWaarde(woningen)
 
 def updateTemperature(i, n):
 
     #temperature = .05 * (i / n) + .95 #linear
     #temperature = .05 * (i ** 2 / n ** 2) + .95 #exponential
-    temperature = .05 * (i ** .5 / n ** .5) + .95 #root
+    #temperature = .05 * (i ** .5 / n ** .5) + .95 #root
     #temperature = .05 * (math.log(i+1) / math.log(n+1)) + .95 #logarithmic
-
+    temperature = .05 * ((1/(1+math.e**-i)) / (1/(1+math.e**-n))) + .95  # sigmoid
 
     return temperature
 
@@ -199,17 +199,17 @@ def updateTemperature(i, n):
 def randomSampling(n):
 
     for i in range(n):
-        conduct()
         global waardeKaart
         global hoogstewaarde
         global woningen
         global besteWoningen
-        if waardeKaart > hoogstewaarde:
-            hoogstewaarde = waardeKaart
+        kaartWaarde = conduct()
+        if kaartWaarde > hoogstewaarde:
+            hoogstewaarde = kaartWaarde
             besteWoningen = woningen
         yas.append(hoogstewaarde)
         xas.append(i)
-        waardeKaart = 0
+        kaartWaarde = 0
         woningen = []
 
     return besteWoningen
@@ -287,7 +287,7 @@ def hillClimber2(n):
     return woningen
 
 #UITVOEREN
-simulatedAnnealer(10000)
+randomSampling(100000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 '''

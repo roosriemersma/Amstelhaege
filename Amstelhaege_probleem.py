@@ -19,7 +19,7 @@ width = 160
 height = 180
 oppervlakte = width * height
 hoeveelHuizen = [20, 40, 60]
-maxHuizen = 60  #random.choice(hoeveelHuizen)
+maxHuizen = 20  #random.choice(hoeveelHuizen)
 woningen = []
 besteWoningen = []
 hoogstewaarde = 0
@@ -162,8 +162,8 @@ def updateTemperature(i, n):
     #temperature = .05 * (i / n) + .95 #linear
     #temperature = .05 * (i ** 2 / n ** 2) + .95 #exponential
     #temperature = .05 * (i ** .5 / n ** .5) + .95 #root
-    #temperature = .05 * (math.log(i+1) / math.log(n+1)) + .95 #logarithmic
-    temperature = .05 * ((1/(1+math.e**-i)) / (1/(1+math.e**-n))) + .95  # sigmoid
+    temperature = .05 * (math.log(i+1) / math.log(n+1)) + .95 #logarithmic
+    #temperature = .05 * ((1/(1+math.e**-i)) / (1/(1+math.e**-n))) + .95  # sigmoid
 
     return temperature
 
@@ -181,7 +181,7 @@ def randomSampling(n):
         if kaartWaarde > hoogstewaarde:
             hoogstewaarde = kaartWaarde
             besteWoningen = woningen
-        yas.append(hoogstewaarde)
+        yas.append(kaartWaarde)
         xas.append(i)
         kaartWaarde = 0
         woningen = []
@@ -243,10 +243,13 @@ def simulatedAnnealer(n):
 
 
 #UITVOEREN
-randomSampling(100000)
+randomSampling(10000)
 print("De waarde van de beste kaart is ", hoogstewaarde)
 
 '''
+#plt.hist(yas, bins=22, color='green', edgecolor='black', linewidth=1.2, range=[7600000, 12000000]) #20 huizen
+#plt.hist(yas, bins=26, color='green', edgecolor='black', linewidth=1.2, range=[15000000, 18200000]) #40 huizen
+#plt.hist(yas, bins=25, color='green', edgecolor='black', linewidth=1.2, range=[22000000, 25000000]) #60 huizen
 plt.plot(xas, yas)
 #plt.plot(xas, temp)
 plt.title('Kaartwaarde', fontsize=20)

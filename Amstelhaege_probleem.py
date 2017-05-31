@@ -146,32 +146,6 @@ def mutateMap(woningen):
     return woningen
 
 
-def houseSwap():
-    water = int(Woning.Water.aantalWatereenheden)
-    indexhuis1 = randint(0 + water, maxHuizen + water - 1) # (maxHuizen + Woning.Water.aantalWatereenheden))
-    while True:
-        indexhuis2 = randint(0 + water, maxHuizen + water - 1)
-        if indexhuis1 != indexhuis2: break
-
-    huis1 = woningen[indexhuis1]
-    huis2 = woningen[indexhuis2]
-    huidigeX1 = huis1.linksBovenX
-    huidigeY1 = huis1.linksBovenY
-    huidigeX2 = huis2.linksBovenX
-    huidigeY2 = huis2.linksBovenY
-
-    nieuweX1 = huidigeX2
-    nieuweY1 = huidigeY2
-    nieuweX2 = huidigeX1
-    nieuweY2 = huidigeY1
-
-    if (coordinatenValid(nieuweX1,nieuweY1,huis1.breedte,huis1.diepte) and coordinatenValid(nieuweX2,nieuweY2,huis2.breedte,huis2.diepte)):
-        huis1.linksBovenX = nieuweX1
-        huis1.linksBovenY = nieuweY1
-        huis2.linksBovenX = nieuweX2
-        huis2.linksBovenY = nieuweY2
-    return woningen
-
 def conduct():
     for i in range(int(Woning.Water.aantalWatereenheden)):
         plaatsWoning(Woning.Water)
@@ -267,24 +241,6 @@ def simulatedAnnealer(n):
         print(int(woningen.index(woning)), woning.linksBovenX, woning.linksBovenY)
     return besteWoningen
 
-
-def hillClimber2(n):
-    conduct()
-    global woningen
-    useWoningenWaarde = berekenKaartWaarde(woningen)
-    print("Beginwaarde =", useWoningenWaarde)
-    for i in range(n):
-        testWoningen = houseSwap()
-        testWoningenWaarde = berekenKaartWaarde(testWoningen)
-        if testWoningenWaarde >= useWoningenWaarde:
-            woningen = testWoningen
-            useWoningenWaarde = testWoningenWaarde
-    global hoogstewaarde
-    global besteWoningen
-    hoogstewaarde = useWoningenWaarde
-    print("Hoogstewaarde = ", hoogstewaarde)
-    besteWoningen = woningen
-    return woningen
 
 #UITVOEREN
 randomSampling(100000)
